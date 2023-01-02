@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
 
 public class VentanaMercado extends JFrame {
 
@@ -43,22 +44,11 @@ public class VentanaMercado extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
+		JLabel lblNewLabel = new JLabel("Mercado liga " + InterfazDeUsuarioPublico.usP.getIdLiga() );
 		lblNewLabel.setBounds(272, 11, 49, 14);
 		contentPane.add(lblNewLabel);
 		
 		cargarJlist();
-		JList list = new JList(model);
-		list.setBounds(103, 110, 302, 286);
-		contentPane.add(list);
-		
-		JList list_1 = new JList();
-		list_1.setBounds(408, 181, 115, 156);
-		contentPane.add(list_1);
-		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(526, 433, 49, 14);
-		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -78,6 +68,12 @@ public class VentanaMercado extends JFrame {
 		});
 		btnNewButton_1.setBounds(522, 65, 89, 23);
 		contentPane.add(btnNewButton_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(137, 47, 329, 333);
+		contentPane.add(scrollPane);
+		JList list = new JList(model);
+		scrollPane.setViewportView(list);
 	}
 
 public void cargarJlist() {

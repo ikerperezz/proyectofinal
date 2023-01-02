@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.ListModel;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
+import javax.swing.JScrollPane;
 
 public class VentanaEquipo extends JFrame {
 
@@ -55,7 +56,7 @@ public class VentanaEquipo extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Plantilla de "+InterfazDeUsuarioPublico.usP.getUsuario());
-		lblNewLabel.setBounds(231, 26, 49, 14);
+		lblNewLabel.setBounds(196, 27, 206, 14);
 		contentPane.add(lblNewLabel);
 
 		JLabel lblNewLabel_2 = new JLabel("Plantilla titular");
@@ -78,18 +79,20 @@ public class VentanaEquipo extends JFrame {
 		contentPane.add(btnNewButton);
 		cargarJListTit();
 		cargarJListSup();
-		JList<String> list = new JList<String>(model);
-
-		list.setBounds(25, 96, 162, 194);
-		contentPane.add(list);
-
-	
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(25, 96, 162, 176);
+		contentPane.add(scrollPane);
+		JList<String> list_2 = new JList<String>(model);
+		scrollPane.setViewportView(list_2);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(329, 96, 162, 188);
+		contentPane.add(scrollPane_1);
 		JList<String> list_1 = new JList<String>(modelsup);
-	
-		list_1.setBounds(329, 96, 162, 194);
-		contentPane.add(list_1);
-		
+		scrollPane_1.setViewportView(list_1);
+				
+				
+				
 		JButton btnNewButton_1 = new JButton("Cambiar");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +100,7 @@ public class VentanaEquipo extends JFrame {
 				dbmanager.conectar();
 				List<Jugador> jug = dbmanager.crearListaPlantilla(InterfazDeUsuarioPublico.usP);
 				
-				String pos= list.getSelectedValue();
+				String pos= list_2.getSelectedValue();
 				
 				String pos1 = list_1.getSelectedValue();
 			
@@ -122,7 +125,7 @@ public class VentanaEquipo extends JFrame {
 			}
 			cargarJListSup();
 			cargarJListTit();
-			list.setModel(model);
+			list_2.setModel(model);
 			list_1.setModel(modelsup);
 			
 			
@@ -136,19 +139,19 @@ public class VentanaEquipo extends JFrame {
 		JButton btnDat = new JButton("Datos");
 		btnDat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String juga= list.getSelectedValue();
+				String juga= list_2.getSelectedValue();
 				String juga_1= list_1.getSelectedValue();
 				DBManager dbmanager= new DBManager();
 							dbmanager.conectar();
 							List<Jugador> jug = dbmanager.crearListaPlantilla(InterfazDeUsuarioPublico.usP);
 					
-					if((list_1.getSelectedIndex()==-1)&&(list.getSelectedIndex()==-1)) {
+					if((list_1.getSelectedIndex()==-1)&&(list_2.getSelectedIndex()==-1)) {
 						JOptionPane.showMessageDialog(VentanaEquipo.this,
 								"No hay ningún jugador seleccionado");
-					}else if(!(list_1.getSelectedIndex()==-1)&&!(list.getSelectedIndex()==-1)) {
+					}else if(!(list_1.getSelectedIndex()==-1)&&!(list_2.getSelectedIndex()==-1)) {
 						JOptionPane.showMessageDialog(VentanaEquipo.this,
 								"Más de un jugador seleccionado");
-						list.clearSelection();
+						list_2.clearSelection();
 						list_1.clearSelection();
 					}else if(!(list_1.getSelectedIndex()==-1)){
 							for (int i = 0; i < jug.size(); i++) {
@@ -165,7 +168,7 @@ public class VentanaEquipo extends JFrame {
 									break;
 								}
 								}
-					}else if(!(list.getSelectedIndex()==-1)){
+					}else if(!(list_2.getSelectedIndex()==-1)){
 							for (int i = 0; i < jug.size(); i++) {
 								if(juga.contains(jug.get(i).getNombreJugador())) {
 									jugador.setEquipo(jug.get(i).getEquipo());
@@ -193,6 +196,9 @@ public class VentanaEquipo extends JFrame {
 		});
 		btnDat.setBounds(208, 209, 89, 23);
 		contentPane.add(btnDat);
+		
+	
+		
 
 	}
 
