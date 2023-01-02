@@ -1,3 +1,4 @@
+
 package ventanas;
 
 import java.awt.EventQueue;
@@ -7,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
+import clases.Administrador;
 import clases.UsuarioPublico;
 
 import javax.swing.JLabel;
@@ -23,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.BorderLayout;
+import javax.swing.JComboBox;
 
 public class InicioSesion extends JFrame  {
 
@@ -58,9 +61,10 @@ public class InicioSesion extends JFrame  {
 	public InicioSesion() {
 		
 		DBManager dbmanager = new DBManager();
+		
 		setTitle("Inicio De Sesion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 394);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -150,6 +154,34 @@ public class InicioSesion extends JFrame  {
 		contentPane.add(label_2);
 		contentPane.add(lblCampoObligatorio1);
 		
+		JLabel lblTipoUsuario = new JLabel("Tipo de usuario:");
+		lblTipoUsuario.setFont(new Font("Verdana", Font.PLAIN, 17));
+		contentPane.add(lblTipoUsuario);
+		
+		JComboBox comboBox = new JComboBox();
+		contentPane.add(comboBox);
+		comboBox.addItem("Jugador");
+		comboBox.addItem("Administrador");
+		
+		
+		
+		JPanel panel_3_1 = new JPanel();
+		contentPane.add(panel_3_1);
+		
+		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				textField.setText("");
+				passwordField.setText("");
+				
+			}
+		});
+		
+		
+		
+	
+		
 		JButton btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.addActionListener(new ActionListener() {
 			
@@ -158,6 +190,7 @@ public class InicioSesion extends JFrame  {
 				
 				dbmanager.conectar();
 				List<UsuarioPublico> up = dbmanager.crearLista();
+				List<Administrador> admins= dbmanager.crearListaAdministradores();
 				
 
 				boolean acceso = false;
@@ -174,8 +207,10 @@ public class InicioSesion extends JFrame  {
 						camposVacios=true;
 						break;
 					}
+					
 					if (textField.getText().equals(up.get(i).getUsuario())
-							&& (passwordField.getText().equals(up.get(i).getContraseina()))) {
+							&& (passwordField.getText().equals(up.get(i).getContraseina()))
+							&& comboBox.getSelectedItem().equals("Jugador")) {
 						nombreUsuario=textField.getText();
 						InterfazDeUsuarioPublico v = new InterfazDeUsuarioPublico(null, null, null);
 						v.setVisible(true);
@@ -190,6 +225,25 @@ public class InicioSesion extends JFrame  {
 					}
 
 				}
+				
+				
+				for (int i = 0; i < admins.size(); i++) {
+				if (textField.getText().equals(admins.get(i).getNombreUsuario())
+						&& (passwordField.getText().equals(admins.get(i).getContraseina()))
+						&& comboBox.getSelectedItem().equals("Administrador")) {
+					
+					nombreUsuario=textField.getText();
+					VentanaAdministrador v = new VentanaAdministrador();
+					v.setVisible(true);
+					InicioSesion.this.setVisible(false);
+					Logger logger = Logger.getLogger( "Inicio sesión");
+					logger.info("Sesión iniciada");
+					passwordField.setText("");
+					acceso = true;
+					break;
+						
+				}
+		}
 
 				if (acceso == false && camposVacios==false) {
 					JOptionPane.showMessageDialog(InicioSesion.this,
@@ -204,19 +258,15 @@ public class InicioSesion extends JFrame  {
 			}
 		});
 		
-		JButton btnBorrar = new JButton("Borrar");
-		btnBorrar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				textField.setText("");
-				passwordField.setText("");
-				
-			}
-		});
+		
+		
+		JPanel panel_3_2 = new JPanel();
+		contentPane.add(panel_3_2);
 		btnBorrar.setFont(new Font("Verdana", Font.PLAIN, 17));
 		contentPane.add(btnBorrar);
 		btnIniciarSesion.setFont(new Font("Verdana", Font.PLAIN, 17));
 		contentPane.add(btnIniciarSesion);
+		
 
 		
 	

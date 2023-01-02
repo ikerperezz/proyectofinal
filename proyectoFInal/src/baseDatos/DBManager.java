@@ -1,5 +1,9 @@
 package baseDatos;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +16,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import clases.Administrador;
 import clases.Jugador;
 import clases.Liga;
 import clases.Usuario;
@@ -20,6 +25,7 @@ import clases.UsuarioPublico;
 public class DBManager {
 
 	private Connection conn = null;
+	
 
 	public void conectar() {
 		try {
@@ -63,6 +69,7 @@ public class DBManager {
 				up.add(us);
 			}
 			return up;
+			
 		} catch (SQLException e) {
 			System.out.format("Error creando lista", e);
 		}
@@ -506,6 +513,37 @@ public class DBManager {
 	}
 	
 	
+	
+	public List<Administrador> crearListaAdministradores()  {
+		
+		List<Administrador> admins= new ArrayList<Administrador>();
+		
+		try (BufferedReader reader = new BufferedReader(new FileReader("src/ficheroExterno/Administradores.csv"))) {
+						
+			String line = null;	
+			
+			while ((line = reader.readLine()) != null) {
+				
+				String[] tokens = line.split(";");
+				String nombreUsuario = tokens[0];
+				String contraseina = tokens[1];						
+				
+				admins.add(new Administrador(nombreUsuario, contraseina));
+				
+			}	
+			
+			reader.close();
+				
+	} catch (Exception e) {
+		// TODO: handle exception
+		System.out.format("Error creando lista", e);
+		e.printStackTrace();
+	}
+		
+		return admins;
+	
+}
+		
 	
 	public Connection getConn() {
 		return conn;
