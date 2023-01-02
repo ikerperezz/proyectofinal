@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
+import clases.Administrador;
 import clases.UsuarioPublico;
 
 import javax.swing.JLabel;
@@ -60,6 +61,7 @@ public class InicioSesion extends JFrame  {
 	public InicioSesion() {
 		
 		DBManager dbmanager = new DBManager();
+		
 		setTitle("Inicio De Sesion");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 394);
@@ -188,6 +190,7 @@ public class InicioSesion extends JFrame  {
 				
 				dbmanager.conectar();
 				List<UsuarioPublico> up = dbmanager.crearLista();
+				List<Administrador> admins= dbmanager.crearListaAdministradores();
 				
 
 				boolean acceso = false;
@@ -204,6 +207,7 @@ public class InicioSesion extends JFrame  {
 						camposVacios=true;
 						break;
 					}
+					
 					if (textField.getText().equals(up.get(i).getUsuario())
 							&& (passwordField.getText().equals(up.get(i).getContraseina()))
 							&& comboBox.getSelectedItem().equals("Jugador")) {
@@ -221,6 +225,25 @@ public class InicioSesion extends JFrame  {
 					}
 
 				}
+				
+				
+				for (int i = 0; i < admins.size(); i++) {
+				if (textField.getText().equals(admins.get(i).getNombreUsuario())
+						&& (passwordField.getText().equals(admins.get(i).getContraseina()))
+						&& comboBox.getSelectedItem().equals("Administrador")) {
+					
+					nombreUsuario=textField.getText();
+					VentanaAdministrador v = new VentanaAdministrador();
+					v.setVisible(true);
+					InicioSesion.this.setVisible(false);
+					Logger logger = Logger.getLogger( "Inicio sesión");
+					logger.info("Sesión iniciada");
+					passwordField.setText("");
+					acceso = true;
+					break;
+						
+				}
+		}
 
 				if (acceso == false && camposVacios==false) {
 					JOptionPane.showMessageDialog(InicioSesion.this,
