@@ -86,6 +86,23 @@ public void cargarJlist() {
 			model.addElement(jugador.toString());
 		}	
 	
+		class MyListCellRenderer extends DefaultListCellRenderer {
+			  public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+			    JLabel label = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+			    // Establece el icono para el índice actual utilizando un switch o un if
+			    switch (index) {
+			      case 0:
+			        label.setIcon(icon1);
+			        break;
+			      case 1:
+			        label.setIcon(icon2);
+			        break;
+			      // ...
+			    }
+			    return label;
+			  }
+			}
+
 }
 
 
