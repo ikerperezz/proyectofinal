@@ -93,7 +93,7 @@ public class VentanaMercado extends JFrame {
 		contentPane.add(lblNewLabel_1);
 	}
 
-	public void cargarJlist() {
+	public JList cargarJlist() {
 		// TODO Auto-generated method stub
 		DBManager dbmanager = new DBManager();
 		dbmanager.conectar();
@@ -102,6 +102,7 @@ public class VentanaMercado extends JFrame {
 		for (Jugador jugador : jug) {
 			model.addElement(jugador.toString());
 		}
+		return null;
 	}
 
 		class RendererBusquedaJugadores extends JButton implements ListCellRenderer<clases.BaseDatos> {
