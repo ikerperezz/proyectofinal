@@ -51,66 +51,84 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 		for (int i = 0; i < model.getSize(); i++) {
 			if (equipoJugador0.equals("Barcelona")) {
 				equipo.setIcon(Barcelona);
+				return equipo;
 			}else {
 				if (equipoJugador0.equals("Real Mandril")) {
 					equipo.setIcon(RealMadrid);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Real Suciedad")) {
 					equipo.setIcon(Erreala);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Atletico de Mandril")) {
 					equipo.setIcon(Atletico);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Aletic de Bilbado")) {
 					equipo.setIcon(Pathetic);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Beti")) {
 					equipo.setIcon(Betis);	
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Villareal")) {
 					equipo.setIcon(VillaReal);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Rayo Vallecano")) {
 					equipo.setIcon(Rayo);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Osasuna")) {
 					equipo.setIcon(OsasunaNuncaSeRinde);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Valencia")) {
 					equipo.setIcon(Valencia);
+					return equipo;
 			}else {
 				if (equipoJugador0.equals("Mallorca")) {
 					equipo.setIcon(Mallorca);
+					return equipo;
 				}else {
 					if (equipoJugador0.equals("Girona")) {
 						equipo.setIcon(Girona);
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Almeria")) {
 						equipo.setIcon(Almeria);
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Getafe")) {
 						equipo.setIcon(Getafe);
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Valladolid")) {
 						equipo.setIcon(Valladolid);
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Español")) {
 						equipo.setIcon(Espanyol);	
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Celta")) {
 						equipo.setIcon(Celta);
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Sevilla")) {
 						equipo.setIcon(Sevilla);
+						return equipo;
 				}else {
 					if (equipoJugador0.equals("Cadiz")) {
 						equipo.setIcon(Cadiz);
+						return equipo;
 						
 			}}}}}}}}}}}}}}}}}}
 				equipo.setIcon(Elche);
+				return equipo;
 				}
-			
-			break;
 		}
 		return listaMercado;
 	}
