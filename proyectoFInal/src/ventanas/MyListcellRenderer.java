@@ -52,22 +52,22 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 			if (equipoJugador0.equals("Barcelona")) {
 				equipo.setIcon(Barcelona);
 			}else {
-				if (equipoJugador0.equals("Real Madrid")) {
+				if (equipoJugador0.equals("Real Mandril")) {
 					equipo.setIcon(RealMadrid);
 			}else {
-				if (equipoJugador0.equals("Real Sociedad")) {
+				if (equipoJugador0.equals("Real Suciedad")) {
 					equipo.setIcon(Erreala);
 			}else {
-				if (equipoJugador0.equals("Atletico de Madrid")) {
+				if (equipoJugador0.equals("Atletico de Mandril")) {
 					equipo.setIcon(Atletico);
 			}else {
-				if (equipoJugador0.equals("Athletic")) {
+				if (equipoJugador0.equals("Aletic de Bilbado")) {
 					equipo.setIcon(Pathetic);
 			}else {
-				if (equipoJugador0.equals("Betis")) {
+				if (equipoJugador0.equals("Beti")) {
 					equipo.setIcon(Betis);	
 			}else {
-				if (equipoJugador0.equals("Villarreal")) {
+				if (equipoJugador0.equals("Villareal")) {
 					equipo.setIcon(VillaReal);
 			}else {
 				if (equipoJugador0.equals("Rayo Vallecano")) {
@@ -94,7 +94,7 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 					if (equipoJugador0.equals("Valladolid")) {
 						equipo.setIcon(Valladolid);
 				}else {
-					if (equipoJugador0.equals("Espanyol")) {
+					if (equipoJugador0.equals("Español")) {
 						equipo.setIcon(Espanyol);	
 				}else {
 					if (equipoJugador0.equals("Celta")) {
