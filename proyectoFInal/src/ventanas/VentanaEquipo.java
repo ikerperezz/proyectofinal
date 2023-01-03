@@ -2,6 +2,7 @@ package ventanas;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -127,7 +128,8 @@ public class VentanaEquipo extends JFrame {
 			cargarJListTit();
 			list_2.setModel(model);
 			list_1.setModel(modelsup);
-			
+			Logger logger = Logger.getLogger( "Cambio de jugadores");
+			logger.info("Cambio realizado");
 			
 			db.disconnect();
 			
