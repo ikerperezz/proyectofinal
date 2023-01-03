@@ -1,33 +1,25 @@
 package ventanas;
 
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
 import clases.BaseDatos;
 import clases.Jugador;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import baseDatos.DBManager;
-import clases.Jugador;
-import java.awt.Component;
-import java.awt.Graphics;
-import javax.swing.Icon;
-import javax.swing.JTextField;
 
 public class VentanaMercado extends JFrame {
 
