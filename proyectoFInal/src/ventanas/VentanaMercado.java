@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -64,6 +65,8 @@ public class VentanaMercado extends JFrame {
 		JButton btnOferta = new JButton("Realizar oferta");
 		btnOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Logger logger = Logger.getLogger( "Realización de oferta");
+				logger.info("Oferta realizada");
 			}
 		});
 		btnOferta.setBounds(476, 156, 146, 23);
