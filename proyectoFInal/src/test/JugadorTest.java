@@ -71,4 +71,11 @@ public class JugadorTest {
 		
 		
 	}
+	
+	@Test
+	public void testToString() {
+		
+		assertEquals("Medio - Guardiola - 50000000€", j1.toString());
+	
+	}
 }
