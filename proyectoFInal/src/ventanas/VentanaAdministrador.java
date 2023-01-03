@@ -10,6 +10,8 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaAdministrador extends JFrame {
 
@@ -53,6 +55,14 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnCrearAdmin = new JButton("      AÑADIR NUEVO ADMINISTRADOR");
+		btnCrearAdmin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaAñadirAdmin v = new VentanaAñadirAdmin();
+				v.setVisible(true);
+				VentanaAdministrador.this.setVisible(false);
+			}
+		});
 		btnCrearAdmin.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnCrearAdmin);
 		
