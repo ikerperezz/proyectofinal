@@ -10,7 +10,6 @@ import javax.swing.ListModel;
 
 import baseDatos.DBManager;
 import clases.Jugador;
-import ventanas.VentanaMercado;
 
 public class MyListcellRenderer extends DefaultListCellRenderer {
 	/**
@@ -18,7 +17,7 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
+	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected,
 			boolean cellHasFocus) {
 		JLabel equipo = (JLabel) super.getListCellRendererComponent(list, value, index, isSelected,
 				cellHasFocus);
@@ -46,7 +45,7 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 		Jugador jugador0 = new Jugador(index, getText(), index, getText(), getText(), index, cellHasFocus);
 		String equipoJugador0 = jugador0.getEquipo();
 		VentanaMercado mercado = new VentanaMercado();
-		JList listaMercado = mercado.cargarJlist();
+		JList<?> listaMercado = mercado.cargarJlist();
 		ListModel model = list.getModel();
 		for (int i = 0; i < model.getSize(); i++) {
 			if (equipoJugador0.equals("Barcelona")) {
