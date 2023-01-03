@@ -49,61 +49,61 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 		JList listaMercado = mercado.cargarJlist();
 		ListModel model = list.getModel();
 		for (int i = 0; i < model.getSize(); i++) {
-			if (equipoJugador0.contains("Barcelona")) {
+			if (equipoJugador0.equals("Barcelona")) {
 				equipo.setIcon(Barcelona);
 			}else {
-				if (equipoJugador0.contains("Real Madrid")) {
+				if (equipoJugador0.equals("Real Madrid")) {
 					equipo.setIcon(RealMadrid);
 			}else {
-				if (equipoJugador0.contains("Real Sociedad")) {
+				if (equipoJugador0.equals("Real Sociedad")) {
 					equipo.setIcon(Erreala);
 			}else {
-				if (equipoJugador0.contains("Atletico de Madrid")) {
+				if (equipoJugador0.equals("Atletico de Madrid")) {
 					equipo.setIcon(Atletico);
 			}else {
-				if (equipoJugador0.contains("Athletic")) {
+				if (equipoJugador0.equals("Athletic")) {
 					equipo.setIcon(Pathetic);
 			}else {
-				if (equipoJugador0.contains("Betis")) {
+				if (equipoJugador0.equals("Betis")) {
 					equipo.setIcon(Betis);	
 			}else {
-				if (equipoJugador0.contains("Villarreal")) {
+				if (equipoJugador0.equals("Villarreal")) {
 					equipo.setIcon(VillaReal);
 			}else {
-				if (equipoJugador0.contains("Rayo Vallecano")) {
+				if (equipoJugador0.equals("Rayo Vallecano")) {
 					equipo.setIcon(Rayo);
 			}else {
-				if (equipoJugador0.contains("Osasuna")) {
+				if (equipoJugador0.equals("Osasuna")) {
 					equipo.setIcon(OsasunaNuncaSeRinde);
 			}else {
-				if (equipoJugador0.contains("Valencia")) {
+				if (equipoJugador0.equals("Valencia")) {
 					equipo.setIcon(Valencia);
 			}else {
-				if (equipoJugador0.contains("Mallorca")) {
+				if (equipoJugador0.equals("Mallorca")) {
 					equipo.setIcon(Mallorca);
 				}else {
-					if (equipoJugador0.contains("Girona")) {
+					if (equipoJugador0.equals("Girona")) {
 						equipo.setIcon(Girona);
 				}else {
-					if (equipoJugador0.contains("Almeria")) {
+					if (equipoJugador0.equals("Almeria")) {
 						equipo.setIcon(Almeria);
 				}else {
-					if (equipoJugador0.contains("Getafe")) {
+					if (equipoJugador0.equals("Getafe")) {
 						equipo.setIcon(Getafe);
 				}else {
-					if (equipoJugador0.contains("Valladolid")) {
+					if (equipoJugador0.equals("Valladolid")) {
 						equipo.setIcon(Valladolid);
 				}else {
-					if (equipoJugador0.contains("Espanyol")) {
+					if (equipoJugador0.equals("Espanyol")) {
 						equipo.setIcon(Espanyol);	
 				}else {
-					if (equipoJugador0.contains("Celta")) {
+					if (equipoJugador0.equals("Celta")) {
 						equipo.setIcon(Celta);
 				}else {
-					if (equipoJugador0.contains("Sevilla")) {
+					if (equipoJugador0.equals("Sevilla")) {
 						equipo.setIcon(Sevilla);
 				}else {
-					if (equipoJugador0.contains("Cadiz")) {
+					if (equipoJugador0.equals("Cadiz")) {
 						equipo.setIcon(Cadiz);
 						
 			}}}}}}}}}}}}}}}}}}
@@ -111,9 +111,8 @@ public class MyListcellRenderer extends DefaultListCellRenderer {
 				}
 			
 			break;
-		
-		return equipo;
 		}
+		return listaMercado;
 	}
 }
 
