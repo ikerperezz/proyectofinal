@@ -519,13 +519,13 @@ public class DBManager {
 		List<Administrador> admins= new ArrayList<Administrador>();
 		
 		try (BufferedReader reader = new BufferedReader(new FileReader("src/ficheroExterno/Administradores.csv"))) {
-						
+					reader.readLine();
 			String line = null;	
 			
-			while ((line = reader.readLine()) != null) {
-				
+			while ((line = reader.readLine())  != null) {
 				String[] tokens = line.split(";");
 				String nombreUsuario = tokens[0];
+				
 				String contraseina = tokens[1];						
 				
 				admins.add(new Administrador(nombreUsuario, contraseina));
