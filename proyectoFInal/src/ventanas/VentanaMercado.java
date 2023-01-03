@@ -27,6 +27,7 @@ import clases.Jugador;
 import java.awt.Component;
 import java.awt.Graphics;
 import javax.swing.Icon;
+import javax.swing.JTextField;
 
 public class VentanaMercado extends JFrame {
 
@@ -36,6 +37,7 @@ public class VentanaMercado extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultListModel<String> model;
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -51,7 +53,7 @@ public class VentanaMercado extends JFrame {
 		contentPane.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Mercado liga " + InterfazDeUsuarioPublico.usP.getIdLiga());
-		lblNewLabel.setBounds(272, 11, 49, 14);
+		lblNewLabel.setBounds(272, 11, 117, 14);
 		contentPane.add(lblNewLabel);
 
 		cargarJlist();
@@ -67,19 +69,28 @@ public class VentanaMercado extends JFrame {
 		btnNewButton.setBounds(10, 429, 89, 23);
 		contentPane.add(btnNewButton);
 
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton btnOferta = new JButton("Realizar oferta");
+		btnOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(522, 65, 89, 23);
-		contentPane.add(btnNewButton_1);
+		btnOferta.setBounds(476, 156, 146, 23);
+		contentPane.add(btnOferta);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(137, 47, 329, 333);
 		contentPane.add(scrollPane);
 		JList list = new JList(model);
 		scrollPane.setViewportView(list);
+		
+		textField = new JTextField();
+		textField.setBounds(476, 122, 117, 23);
+		contentPane.add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("€");
+		lblNewLabel_1.setBounds(603, 122, 20, 23);
+		contentPane.add(lblNewLabel_1);
 	}
 
 	public void cargarJlist() {
