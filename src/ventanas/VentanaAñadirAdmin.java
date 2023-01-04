@@ -71,6 +71,7 @@ public class VentanaAñadirAdmin extends JFrame {
 		JButton btnNewButton = new JButton("CREAR ADMINISTRADOR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				if (textField.getText().isEmpty()
 						|| String.valueOf(passwordField.getText()).trim().isEmpty()) {
 
@@ -79,32 +80,45 @@ public class VentanaAñadirAdmin extends JFrame {
 					textField.setText("");
 					passwordField.setText("");
 				}
+				
 				if (!textField.getText().isEmpty()
 							&& (!String.valueOf(passwordField.getText()).trim().isEmpty())){
-					DBManager dbmanager = new DBManager();
-					dbmanager.conectar();
-					String nombreUsuario=textField.getText();
-					String contraseña=String.valueOf(passwordField.getText());
-					Administrador admin= new Administrador(nombreUsuario, contraseña);
-					List<Administrador> admins= dbmanager.crearListaAdministradores();
-					admins.add(admin);
-					File file = new File("src/ficheroExterno/Administradores.csv");
-					try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-						
-						String con="contraseña";
-						String us ="usuario";
-								String cabezera=String.format("%s;%s", us, con);
-						writer.write(cabezera+ System.lineSeparator());	
-						for (int i = 0; i < admins.size(); i++) {
-							String adminNuevo=String.format("%s;%s%n", admins.get(i).getNombreUsuario(), admins.get(i).getContraseina());
-						writer.write(adminNuevo);
-						writer.close();
-						}
-						
-												
-					} catch (IOException e1) {
-		                System.out.println("No se pudo escribir en la ruta indicada o no se encontro el fichero");
-		            }
+										
+					BufferedWriter bw = null;
+				    FileWriter fw = null;
+				    
+
+				    try {
+				        
+				    	String nombreUsuario=textField.getText();
+					    String contrasenia=String.valueOf(passwordField.getText());
+					    String adminNuevo=String.format("%s;%s%n", nombreUsuario, contrasenia);
+				        
+				    	File file = new File("src/ficheroExterno/Administradores.csv");
+				        				        
+				        
+				        fw = new FileWriter(file.getAbsoluteFile(), true);
+				        			        
+				        
+				        bw = new BufferedWriter(fw);
+				        bw.write(adminNuevo);
+				        
+				        
+				    } catch (IOException e1) {
+				        e1.printStackTrace();
+				        
+				    } finally {
+				        try {
+				                        
+				            if (bw != null)
+				                bw.close();
+				            if (fw != null)
+				                fw.close();
+				            
+				        } catch (IOException ex) {
+				            ex.printStackTrace();
+				        }
+				    }
 					
 					
 					JOptionPane.showMessageDialog(VentanaAñadirAdmin.this,
