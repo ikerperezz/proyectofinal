@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import baseDatos.DBManager;
 import clases.Administrador;
 
 import javax.swing.JLabel;
@@ -17,6 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,21 +34,6 @@ public class VentanaAñadirAdmin extends JFrame {
 	private JTextField textField;
 	private JPasswordField passwordField;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAñadirAdmin frame = new VentanaAñadirAdmin();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -83,30 +71,36 @@ public class VentanaAñadirAdmin extends JFrame {
 		JButton btnNewButton = new JButton("CREAR ADMINISTRADOR");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				if (textField.getText().trim().isEmpty()
+				if (textField.getText().isEmpty()
 						|| String.valueOf(passwordField.getText()).trim().isEmpty()) {
 
 					JOptionPane.showMessageDialog(VentanaAñadirAdmin.this,
 							"Hay campos obligatorios vacios, rellene todos");
 					textField.setText("");
 					passwordField.setText("");
-					
-				if (!textField.getText().trim().isEmpty()
+				}
+				if (!textField.getText().isEmpty()
 							&& (!String.valueOf(passwordField.getText()).trim().isEmpty())){
-					
+					DBManager dbmanager = new DBManager();
+					dbmanager.conectar();
 					String nombreUsuario=textField.getText();
 					String contraseña=String.valueOf(passwordField.getText());
-					
-					
-					String adminNuevo=String.format("%s, %s", nombreUsuario, contraseña);
-							
-					
-					try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/ficheroExterno/Administradores.csv"))) {
+					Administrador admin= new Administrador(nombreUsuario, contraseña);
+					List<Administrador> admins= dbmanager.crearListaAdministradores();
+					admins.add(admin);
+					File file = new File("src/ficheroExterno/Administradores.csv");
+					try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 						
+						String con="contraseña";
+						String us ="usuario";
+								String cabezera=String.format("%s;%s", us, con);
+						writer.write(cabezera+ System.lineSeparator());	
+						for (int i = 0; i < admins.size(); i++) {
+							String adminNuevo=String.format("%s;%s%n", admins.get(i).getNombreUsuario(), admins.get(i).getContraseina());
 						writer.write(adminNuevo);
-						
 						writer.close();
+						}
+						
 												
 					} catch (IOException e1) {
 		                System.out.println("No se pudo escribir en la ruta indicada o no se encontro el fichero");
@@ -118,13 +112,10 @@ public class VentanaAñadirAdmin extends JFrame {
 					
 					textField.setText("");
 					passwordField.setText("");
+				}
 					
 				}
 				
-					
-				}
-				
-			}
 		});
 		btnNewButton.setBounds(249, 234, 177, 41);
 		contentPane.add(btnNewButton);
