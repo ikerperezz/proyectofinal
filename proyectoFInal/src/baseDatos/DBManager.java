@@ -307,7 +307,7 @@ public class DBManager {
 		return del;
 	}
 	
-	public List<Jugador> crearListaMercado(int idLiga){
+	public void crearMercado(int idLiga){
 		List<Jugador> por = crearListaPorteros(idLiga);
 		List<Jugador> def = crearListaDefensas(idLiga);
 		List<Jugador> med = crearListaMedios(idLiga);
@@ -350,7 +350,51 @@ public class DBManager {
 		aleatorio = r.nextInt(del.size());
 		jug.add(del.get(aleatorio));
 		del.remove(aleatorio);
-		return jug;
+		
+		
+		try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO mercado (idLiga, idJugador, ofertaminima,) VALUES (?,?,?)")) {
+	for (int i = 0; i < jug.size(); i++) {
+		stmt.setInt(1, idLiga);
+		stmt.setInt(2, jug.get(i).getIdJugador());	
+		stmt.setInt(3, jug.get(i).getValor());	
+		stmt.executeUpdate();
+	}
+	
+		} catch (SQLException e) {
+			System.out.format("Error creando mercado", e);
+		}
+		
+		
+	}
+	
+	
+	
+	public List<Jugador> crearListaMercado(int idLiga){
+		
+		List<Jugador> jug = new ArrayList<Jugador>();
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT Jugadores.idJugador, nombreJugador, valor, posicion, equipo, puntos FROM Jugadores JOIN mercado ON Jugadores.idJugador = mercado.idJugador where mercado.idLiga = '" +idLiga+ "'");
+
+			while (rs.next()) {
+				int idJugador = rs.getInt("idJugador");
+				String nombreJugador = rs.getString("nombreJugador");
+				int valor = rs.getInt("valor");
+				String posicion = rs.getString("posicion");
+				String equipo = rs.getString("equipo");
+				int puntos= rs.getInt("puntos");
+				boolean titular = rs.getBoolean("titular");
+				
+				
+				Jugador jugador = new Jugador(idJugador, nombreJugador, valor, posicion, equipo, puntos, titular);
+				jug.add(jugador);
+			}
+			return jug;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+			return null;
+		}
+		
 	}
 	
 	
@@ -547,6 +591,12 @@ public class DBManager {
 		return admins;
 	
 }
+	
+	
+	
+	
+	
+	
 	
 	public void updateValorJugadores(Jugador jugador, List<Jugador> jugadores) {
 		JTextField textField = new JTextField();
