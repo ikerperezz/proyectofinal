@@ -307,6 +307,16 @@ public class DBManager {
 		return del;
 	}
 	
+	
+	public void eliminarMercado() {
+		try (Statement stmt = conn.createStatement()) {
+			stmt.executeUpdate("DELETE FROM mercado");
+		}catch (SQLException e) {
+			System.out.format("Error eliminando mercado", e);
+			e.printStackTrace();
+		}
+	}
+	
 	public void crearMercado(int idLiga){
 		List<Jugador> por = crearListaPorteros(idLiga);
 		List<Jugador> def = crearListaDefensas(idLiga);
@@ -352,16 +362,18 @@ public class DBManager {
 		del.remove(aleatorio);
 		
 		
-		try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO mercado (idLiga, idJugador, ofertaminima,) VALUES (?,?,?)")) {
+		try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO mercado (idLiga, idJugador, ofertaminima) VALUES (?,?,?)")) {
 	for (int i = 0; i < jug.size(); i++) {
 		stmt.setInt(1, idLiga);
 		stmt.setInt(2, jug.get(i).getIdJugador());	
 		stmt.setInt(3, jug.get(i).getValor());	
 		stmt.executeUpdate();
+		
 	}
 	
 		} catch (SQLException e) {
 			System.out.format("Error creando mercado", e);
+			e.printStackTrace();
 		}
 		
 		
@@ -383,18 +395,38 @@ public class DBManager {
 				String posicion = rs.getString("posicion");
 				String equipo = rs.getString("equipo");
 				int puntos= rs.getInt("puntos");
-				boolean titular = rs.getBoolean("titular");
 				
 				
-				Jugador jugador = new Jugador(idJugador, nombreJugador, valor, posicion, equipo, puntos, titular);
+				
+				Jugador jugador = new Jugador(idJugador, nombreJugador, valor, posicion, equipo, puntos, false);
 				jug.add(jugador);
 			}
 			return jug;
 		} catch (SQLException e) {
 			System.out.format("Error creando lista", e);
+			e.printStackTrace();
 			return null;
 		}
 		
+	}
+	
+	public List<Integer> crearListaIdLigas() {
+		
+		List<Integer> up = new ArrayList<Integer>();
+		try (Statement stmt = conn.createStatement()) {
+
+			ResultSet rs = stmt.executeQuery(
+					"SELECT idLiga FROM liga");
+
+			while (rs.next()) {
+				up.add(rs.getInt("idLiga"));
+			}
+			return up;
+			
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+		}
+		return null;
 	}
 	
 	

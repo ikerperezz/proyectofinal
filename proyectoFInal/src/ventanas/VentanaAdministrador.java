@@ -5,33 +5,25 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import baseDatos.DBManager;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class VentanaAdministrador extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAdministrador frame = new VentanaAdministrador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -77,5 +69,25 @@ public class VentanaAdministrador extends JFrame {
 		JButton btnNewButton_3 = new JButton("        CAMBIAR VALOR DE LOS JUGADORES");
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnNewButton_3);
+		
+		JButton btnCrearMercado = new JButton("CREAR MERCADO");
+		btnCrearMercado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DBManager dbmanager = new DBManager();
+				dbmanager.conectar();
+				dbmanager.eliminarMercado();
+				List<Integer> ligas = dbmanager.crearListaIdLigas();
+				for (int i = 0; i < ligas.size(); i++) {
+					
+					dbmanager.crearMercado(ligas.get(i));
+				}
+				JOptionPane.showMessageDialog(VentanaAdministrador.this,
+						"Mercados creados con exito");
+				dbmanager.disconnect();
+			}
+			
+			
+		});
+		contentPane.add(btnCrearMercado);
 	}
 }
