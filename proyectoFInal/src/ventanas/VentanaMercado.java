@@ -180,6 +180,8 @@ public class VentanaMercado extends JFrame {
 				dbmanager.disconnect();
 				Logger logger = Logger.getLogger( "Realización de oferta");
 				logger.info("Oferta realizada");	
+				JOptionPane.showMessageDialog(VentanaMercado.this,
+						"Oferta realizada");
 				}else {
 					JOptionPane.showMessageDialog(VentanaMercado.this,
 							"La oferta es menor al valor");
