@@ -71,6 +71,7 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnCrearMercado = new JButton("CREAR MERCADO");
+		btnCrearMercado.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCrearMercado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DBManager dbmanager = new DBManager();

@@ -429,7 +429,55 @@ public class DBManager {
 		return null;
 	}
 	
+	public int conseguirIdJugador(String nombre) {
+		int id = 0;
+		List<Jugador> jug = crearListaJugadores();
+		for (int i = 0; i < jug.size(); i++) {
+			if(nombre.contains(jug.get(i).getNombreJugador())) {
+				 id = jug.get(i).getIdJugador();
+				 break;
+			}
+		}
+		return id;
+	}
 	
+	public int conseguirMayorOferta(int id) {
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT ofertaMasAlta FROM Mercado where idJugador = '"+ id + "'");
+
+			
+			return rs.getInt("ofertaMasAlta");
+		} catch (SQLException e) {
+			System.out.format("Error consiguiendo", e);
+			return 0;
+		}
+		
+	}
+	
+	public void updateMayoroferta(int oferta, String nombre, UsuarioPublico usP) {
+		int id = conseguirIdJugador(nombre);
+		int ofertaMasAlta = conseguirMayorOferta(id);
+		
+		if(oferta>ofertaMasAlta) {
+			try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO mercado (ofertaMasAlta, idUsuario) VALUES (?,?)")) {
+				
+					stmt.setInt(1, oferta);
+					stmt.setString(2, usP.getUsuario());	
+				
+					stmt.executeUpdate();
+					
+				
+				
+					} catch (SQLException e) {
+						System.out.format("Error actualizando oferta", e);
+						e.printStackTrace();
+					}
+		}
+		
+		
+		
+	}
 	
 	
 	
