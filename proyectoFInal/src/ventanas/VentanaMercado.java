@@ -14,6 +14,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -125,57 +126,71 @@ public class VentanaMercado extends JFrame {
 		JSpinner spinner_1 = new JSpinner(spModel_1);
 		spinner_1.setBounds(432, 123, 30, 20);
 		contentPane.add(spinner_1);
-		int valor =Integer.parseInt(spinner_1.getValue().toString());
+		
+		
 		
 		JSpinner spinner_2 = new JSpinner(spModel);
 		spinner_2.setBounds(458, 123, 30, 20);
 		contentPane.add(spinner_2);
-		Integer valor2 =(Integer)spinner_2.getValue();
 		
 		JSpinner spinner_3 = new JSpinner(spModel2);
 		spinner_3.setBounds(501, 122, 30, 20);
 		contentPane.add(spinner_3);
-		Integer valor3 =(Integer)spinner_3.getValue();
 		
 		JSpinner spinner_1_1 = new JSpinner(spModel3);
 		spinner_1_1.setBounds(529, 122, 30, 20);
 		contentPane.add(spinner_1_1);
-		Integer valor4 =(Integer)spinner_1_1.getValue();
 		
 		JSpinner spinner_2_1 = new JSpinner(spModel4);
 		spinner_2_1.setBounds(555, 122, 30, 20);
 		contentPane.add(spinner_2_1);
-		Integer valor5 =(Integer)spinner_2_1.getValue();
 		
 		JSpinner spinner_3_1 = new JSpinner(spModel5);
 		spinner_3_1.setBounds(595, 122, 30, 20);
 		contentPane.add(spinner_3_1);
-		Integer valor6 =(Integer)spinner_3_1.getValue();
 		
 		JSpinner spinner_2_1_1 = new JSpinner(spModel6);
 		spinner_2_1_1.setBounds(649, 122, 30, 20);
 		contentPane.add(spinner_2_1_1);
-		Integer valor7 =(Integer)spinner_2_1_1.getValue();
 		
 		JSpinner spinner_1_1_1 = new JSpinner(spModel7);
 		spinner_1_1_1.setBounds(623, 122, 30, 20);
 		contentPane.add(spinner_1_1_1);
-		Integer valor8 =(Integer)spinner_1_1_1.getValue();
 		
-		String str =  String.valueOf(valor) +  String.valueOf(valor2) + String.valueOf(valor3)+ String.valueOf(valor4)+ String.valueOf(valor5)+ String.valueOf(valor6)+ String.valueOf(valor7)+ String.valueOf(valor8);
 		
 		
 		JButton btnOferta = new JButton("Realizar oferta");
 		btnOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(valor);
-				System.out.println(str);
-//				DBManager dbmanager = new DBManager();
-//				dbmanager.conectar();
-//				dbmanager.updateMayoroferta(0, list.getSelectedValue(), InterfazDeUsuarioPublico.usP);
-//				dbmanager.disconnect();
+				
+				
+				
+				DBManager dbmanager = new DBManager();
+				dbmanager.conectar();
+				
+				
+				int value =((int)spinner_1.getValue()*10000000) +  ((int)spinner_2.getValue()*1000000) + ((int)spinner_3.getValue()*100000)+ ((int)spinner_1_1.getValue()*10000)+ ((int)spinner_2_1.getValue()*1000)+ ((int)spinner_3_1.getValue()*100)+ ((int)spinner_2_1_1.getValue()*10)+ ((int)spinner_1_1_1.getValue()*1);
+	
+				
+				if(!(list.getSelectedIndex()==-1)) {
+					int id = dbmanager.conseguirIdJugador(list.getSelectedValue());
+					int valor = dbmanager.conseguirValor(id);
+				if(value>valor) {
+					dbmanager.updateMayoroferta(value, list.getSelectedValue(), InterfazDeUsuarioPublico.usP);
+				dbmanager.disconnect();
 				Logger logger = Logger.getLogger( "Realización de oferta");
-				logger.info("Oferta realizada");
+				logger.info("Oferta realizada");	
+				}else {
+					JOptionPane.showMessageDialog(VentanaMercado.this,
+							"La oferta es menor al valor");
+				}	
+				}else {
+					JOptionPane.showMessageDialog(VentanaMercado.this,
+							"No hay ningun jugador seleccionado");
+				}
+				
+				
+				
 			}
 		});
 		

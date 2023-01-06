@@ -455,20 +455,34 @@ public class DBManager {
 		
 	}
 	
+	public int conseguirValor(int id) {
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT valor FROM jugadores where idJugador = '"+ id + "'");
+
+			
+			return rs.getInt("valor");
+		} catch (SQLException e) {
+			System.out.format("Error consiguiendo valor", e);
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+	
+	
+	
+	
+	
 	public void updateMayoroferta(int oferta, String nombre, UsuarioPublico usP) {
 		int id = conseguirIdJugador(nombre);
 		int ofertaMasAlta = conseguirMayorOferta(id);
 		
 		if(oferta>ofertaMasAlta) {
-			try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO mercado (ofertaMasAlta, idUsuario) VALUES (?,?)")) {
-				
+			try (PreparedStatement stmt = conn.prepareStatement("UPDATE mercado SET ofertaMasAlta=?, idUsuario=? WHERE idJugador = '"+ id +"' AND idLiga = "+ usP.getIdLiga())) {
 					stmt.setInt(1, oferta);
 					stmt.setString(2, usP.getUsuario());	
-				
 					stmt.executeUpdate();
-					
-				
-				
 					} catch (SQLException e) {
 						System.out.format("Error actualizando oferta", e);
 						e.printStackTrace();
