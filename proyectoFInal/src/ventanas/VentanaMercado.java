@@ -27,6 +27,7 @@ import baseDatos.DBManager;
 import clases.BaseDatos;
 import clases.Jugador;
 import javax.swing.JSpinner;
+import java.awt.Font;
 
 public class VentanaMercado extends JFrame {
 
@@ -206,6 +207,11 @@ public class VentanaMercado extends JFrame {
 		JLabel lblNewLabel_1_1_1 = new JLabel("   . ");
 		lblNewLabel_1_1_1.setBounds(580, 122, 20, 23);
 		contentPane.add(lblNewLabel_1_1_1);
+		
+		JLabel lblDinero = new JLabel("Saldo: "+InterfazDeUsuarioPublico.usP.getDineroDisponible() + "€");
+		lblDinero.setFont(new Font("Yu Gothic UI", Font.PLAIN, 14));
+		lblDinero.setBounds(432, 343, 277, 35);
+		contentPane.add(lblDinero);
 	}
 
 	public JList cargarJlist() {
