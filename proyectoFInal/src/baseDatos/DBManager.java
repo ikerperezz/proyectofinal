@@ -687,16 +687,19 @@ public class DBManager {
 	
 	
 	
-public void updateValorJugadores(Jugador jugador, List<Jugador> jugadores) {
+public void updateValorJugadores(Jugador jugador) {
 	JTextField textField = new JTextField();
 	String nombreDeJugador = textField.getText();
 	try (PreparedStatement stmt = conn.prepareStatement("UPDATE jugadores SET valor = ? WHERE idJugador = ' " + nombreDeJugador + "'")) {
-		if (jugadores.contains(nombreDeJugador)) {
-			stmt.setFloat(1, jugador.getValor());
+		if (jugador.getNombreJugador().equals(nombreDeJugador)) {
+			stmt.setInt(1, jugador.getValor());
+			stmt.setString(2, nombreDeJugador);
 			stmt.executeUpdate();
 		} else {
 			JOptionPane.showMessageDialog(textField, "No existe ese jugador");
 		}
+		stmt.close();
+		conn.close();
 	} catch (SQLException e) {
 		System.out.format("No se puedo actualizar el valor del jugador" + nombreDeJugador);
 	}
