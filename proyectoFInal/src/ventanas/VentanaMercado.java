@@ -210,8 +210,19 @@ public class VentanaMercado extends JFrame {
 		
 		JLabel lblDinero = new JLabel("Saldo: "+InterfazDeUsuarioPublico.usP.getDineroDisponible() + "€");
 		lblDinero.setFont(new Font("Yu Gothic UI", Font.PLAIN, 14));
-		lblDinero.setBounds(432, 343, 277, 35);
+		lblDinero.setBounds(432, 343, 146, 35);
 		contentPane.add(lblDinero);
+		
+		JButton button = new JButton("Jugadores mas valorados");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaHilo v = new VentanaHilo(VentanaMercado.this);
+				v.setVisible(true);
+				VentanaMercado.this.setVisible(false);
+			}
+		});
+		button.setBounds(590, 351, 89, 23);
+		contentPane.add(button);
 	}
 
 	public JList cargarJlist() {
