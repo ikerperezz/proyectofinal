@@ -18,6 +18,7 @@ public class VentanaHilo2 extends JFrame {
 		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
