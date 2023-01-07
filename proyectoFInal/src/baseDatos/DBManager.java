@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -815,20 +816,7 @@ public void updateValorJugadores(int id, int valor) {
 		System.out.format("No se puedo actualizar el valor del jugador" );
 	}
 }
-	
-	
-	
-	
-	
-//	public void updateLigaEnUsuario(UsuarioPublico usuarioPublico, String nombreDeUsuario) {
-//		try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET idLiga=? WHERE nombreDeUsuario = '"+ nombreDeUsuario +"'")) {
-//			stmt.setInt(1, usuarioPublico.getIdLiga());	
-//			stmt.executeUpdate();
-//		} catch (SQLException e) {
-//			System.out.format("No se pudo guardar el usuario en la BD", e);
-//		}
-//	}
-//	
+
 	public Connection getConn() {
 		return conn;
 	}
