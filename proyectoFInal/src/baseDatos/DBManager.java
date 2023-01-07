@@ -2,8 +2,6 @@ package baseDatos;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,7 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -22,7 +19,6 @@ import javax.swing.JTextField;
 import clases.Administrador;
 import clases.Jugador;
 import clases.Liga;
-import clases.Usuario;
 import clases.UsuarioPublico;
 
 public class DBManager {
@@ -677,7 +673,6 @@ public class DBManager {
 			reader.close();
 				
 	} catch (Exception e) {
-		// TODO: handle exception
 		System.out.format("Error creando lista", e);
 		e.printStackTrace();
 	}
