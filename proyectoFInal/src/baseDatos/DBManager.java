@@ -9,7 +9,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
@@ -680,28 +682,58 @@ public class DBManager {
 		return admins;
 	
 }
-	
-	
-	
-	
-	
-	
-	
-public void updateValorJugadores(Jugador jugador) {
-	JTextField textField = new JTextField();
-	String nombreDeJugador = textField.getText();
-	try (PreparedStatement stmt = conn.prepareStatement("UPDATE jugadores SET valor = ? WHERE idJugador = ' " + nombreDeJugador + "'")) {
-		if (jugador.getNombreJugador().equals(nombreDeJugador)) {
-			stmt.setInt(1, jugador.getValor());
-			stmt.setString(2, nombreDeJugador);
-			stmt.executeUpdate();
-		} else {
-			JOptionPane.showMessageDialog(textField, "No existe ese jugador");
+	public Map<String, Integer> crearListaJugadoresValor(){
+		Map<String,Integer> jug = new HashMap<String,Integer>();
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+	"SELECT nombreJugador, valor FROM Jugadores");
+
+			while (rs.next()) {
+				String nombreJugador = rs.getString("nombreJugador");
+				int valor = rs.getInt("valor");
+				jug.put(nombreJugador, valor);
+				
+			}
+			return jug;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+			e.printStackTrace();
 		}
+		return null;
+	}
+	
+	
+	public List<String> crearListaJugadoresNombre(){
+		List<String> jug = new ArrayList<String>();
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+	"SELECT nombreJugador FROM Jugadores");
+
+			while (rs.next()) {
+				String nombreJugador = rs.getString("nombreJugador");
+				jug.add(nombreJugador);
+				
+			}
+			return jug;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+		}
+		return null;
+	}
+	
+	
+	
+public void updateValorJugadores(int id, int valor) {
+	try (PreparedStatement stmt = conn.prepareStatement("UPDATE jugadores SET valor = ? WHERE idJugador = " + id )) {
+		
+			stmt.setInt(1, valor);
+		
+			stmt.executeUpdate();
+	
 		stmt.close();
 		conn.close();
 	} catch (SQLException e) {
-		System.out.format("No se puedo actualizar el valor del jugador" + nombreDeJugador);
+		System.out.format("No se puedo actualizar el valor del jugador" );
 	}
 }
 	

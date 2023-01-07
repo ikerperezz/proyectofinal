@@ -67,6 +67,13 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnRepartirDinero);
 		
 		JButton btnNewButton_3 = new JButton("        CAMBIAR VALOR DE LOS JUGADORES");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaAñadirValor v = new VentanaAñadirValor();
+			v.setVisible(true);
+			VentanaAdministrador.this.setVisible(false);
+			}
+		});
 		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnNewButton_3);
 		
