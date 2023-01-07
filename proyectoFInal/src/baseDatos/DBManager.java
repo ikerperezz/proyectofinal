@@ -687,24 +687,22 @@ public class DBManager {
 	
 	
 	
-	public void updateValorJugadores(Jugador jugador, List<Jugador> jugadores) {
-		JTextField textField = new JTextField();
-		String nombreDeJugador = textField.getText();
-		try (PreparedStatement stmt = conn.prepareStatement("UPDATE jugadores SET valor = ? WHERE idJugador = ' " + nombreDeJugador + "'")){
-			for (int i = 0; i < jugadores.size(); i++) {
-				if(jugadores.contains(nombreDeJugador)) {
-					stmt.setFloat(1, jugador.getValor());
-					stmt.executeUpdate();
-				}else {
-					JOptionPane.showMessageDialog(textField, "No existe ese jugador");
-				}
-			}
-		} catch (SQLException e) {
-			System.out.format("No se puedo actualizar el valor del jugador" + jugador.getNombreJugador());
+public void updateValorJugadores(Jugador jugador, List<Jugador> jugadores) {
+	JTextField textField = new JTextField();
+	String nombreDeJugador = textField.getText();
+	try (PreparedStatement stmt = conn.prepareStatement("UPDATE jugadores SET valor = ? WHERE idJugador = ' " + nombreDeJugador + "'")) {
+		if (jugadores.contains(nombreDeJugador)) {
+			stmt.setFloat(1, jugador.getValor());
+			stmt.executeUpdate();
+		} else {
+			JOptionPane.showMessageDialog(textField, "No existe ese jugador");
 		}
+	} catch (SQLException e) {
+		System.out.format("No se puedo actualizar el valor del jugador" + nombreDeJugador);
 	}
+}
 	
-
+	
 	
 	
 	
