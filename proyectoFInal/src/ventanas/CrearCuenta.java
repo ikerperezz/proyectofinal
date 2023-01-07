@@ -85,7 +85,7 @@ public class CrearCuenta extends JFrame {
 					}
 				}
 				if (crearUsuario == true) {
-					UsuarioPublico us = new UsuarioPublico(textField.getText(), passwordField.getText(), 0, 0, 1000000,
+					UsuarioPublico us = new UsuarioPublico(textField.getText(), passwordField.getText(), 0, 0, 100000000,
 							0);
 					nombreUsuario = textField.getText();
 					dbmanager.actualizarUsuarios(us);

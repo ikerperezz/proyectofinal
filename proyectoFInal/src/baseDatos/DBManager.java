@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -21,6 +22,7 @@ import javax.swing.JTextField;
 import clases.Administrador;
 import clases.Jugador;
 import clases.Liga;
+import clases.Oferta;
 import clases.UsuarioPublico;
 
 public class DBManager {
@@ -485,12 +487,89 @@ public class DBManager {
 						System.out.format("Error actualizando oferta", e);
 						e.printStackTrace();
 					}
-		}
-		
-		
-		
+		}	
 	}
 	
+	
+	public void updateJugador() {
+			List<Oferta> ofertas = new ArrayList<Oferta>();
+			List<UsuarioPublico> dinero = new ArrayList<UsuarioPublico>();
+			try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT idLiga, idJugador, ofertaMasAlta, idUsuario FROM Mercado where ofertaMasAlta is not null");
+			
+			while (rs.next()) {
+				int idLiga = rs.getInt("idLiga");
+					int idjug = rs.getInt("idJugador");
+					int oferta = rs.getInt("ofertaMasAlta");
+					String us = rs.getString("idUsuario");
+					Oferta ofer = new Oferta(us, idjug, oferta,idLiga);
+					ofertas.add(ofer);
+				
+					}
+					
+					
+			
+		} catch (SQLException e) {
+			System.out.format("Error actualizando compra de jugadores", e);
+			e.printStackTrace();
+		}
+			
+			
+			try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO jugadorenliga (nombreUsuario, idJugador, idLiga, titular) VALUES (?,?,?,?)")) {
+				for (int i = 0; i < ofertas.size(); i++) {
+					stmt.setString(1, ofertas.get(i).getNombreUsuario());
+					stmt.setInt(2, ofertas.get(i).getIdJugador());	
+					stmt.setInt(3, ofertas.get(i).getIdLiga());	
+					stmt.setBoolean(4, false);	
+					stmt.executeUpdate();
+					
+				}
+				
+					} catch (SQLException e) {
+						System.out.format("Error creando mercado", e);
+						e.printStackTrace();
+					}	
+			
+			
+			try (Statement stmt = conn.createStatement()) {
+				ResultSet rs = stmt.executeQuery(
+						"SELECT nombreDeUsuario, dineroDisponible FROM usuario");
+
+				while (rs.next()) {
+					int dineroDis = rs.getInt("dineroDisponible");
+					String nombre = rs.getString("nombreDeUsuario");
+					UsuarioPublico us= new UsuarioPublico(nombre,"",0,0,dineroDis,0);
+					dinero.add(us);	
+				}
+			} catch (SQLException e) {
+				System.out.format("Error creando lista", e);
+				e.printStackTrace();
+			}
+			
+			
+			for (int i = 0; i < dinero.size(); i++) {
+				
+				for (int j = 0; j < ofertas.size(); j++) {
+					if(dinero.get(i).getUsuario().equals(ofertas.get(j).getNombreUsuario())) {
+						int valor = dinero.get(i).getDineroDisponible() - ofertas.get(j).getOferta();
+						dinero.get(i).setDineroDisponible(valor);
+					}
+				}	
+			}
+			for (int i = 0; i < dinero.size(); i++) {
+				try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET dineroDisponible=? WHERE nombreDeUsuario = '"+dinero.get(i).getUsuario()+"'" )) {
+				stmt.setInt(1, dinero.get(i).getDineroDisponible());
+				stmt.executeUpdate();
+				} catch (SQLException e) {
+					System.out.format("Error actualizando oferta", e);
+					e.printStackTrace();
+				}
+			}
+			
+			
+			
+	}
 	
 	
 	
