@@ -9,14 +9,21 @@ import javax.swing.border.EmptyBorder;
 import baseDatos.DBManager;
 
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.SwingConstants;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
 
 public class VentanaAdministrador extends JFrame {
@@ -30,7 +37,7 @@ public class VentanaAdministrador extends JFrame {
 	 */
 	public VentanaAdministrador() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 416, 395);
+		setBounds(100, 100, 401, 418);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -92,6 +99,31 @@ public class VentanaAdministrador extends JFrame {
 				}
 				JOptionPane.showMessageDialog(VentanaAdministrador.this,
 						"Mercados creados con exito");
+				Thread hilo = new Thread() {
+					@Override
+					public void run() {
+						VentanaHilo v = new VentanaHilo(VentanaAdministrador.this);
+						v.setVisible(true);
+						DBManager dbmanager = new DBManager();
+						Connection conexion = dbmanager.getConn();
+						try (PreparedStatement stmt = conexion.prepareStatement(
+								"SELECT nombreJugador, valor FROM jugadores ORDER BY valor DESC LIMIT 5 ")) {
+							ResultSet resultSet = stmt.executeQuery();
+							DefaultListModel<String> model = new DefaultListModel<>();
+							while (resultSet.next()) {
+								model.addElement(resultSet.getString("nombreJugador"));
+								model.addElement(resultSet.getString("valor"));
+							}
+							JList<String> listaJugadores = new JList<>(model);
+
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+					}
+				};
+				hilo.start();
+				Logger logger = Logger.getLogger("Final de evento");
+				logger.info("Evento finalizado");
 				dbmanager.disconnect();
 			}
 			
