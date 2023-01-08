@@ -1,5 +1,7 @@
 package ventanas;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.util.Iterator;
 import java.util.List;
@@ -20,15 +22,19 @@ import javax.swing.JLabel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JTextField;
 
 public class VentanaAñadirValor extends JFrame {
 
 	private JPanel contentPane;
 	private DefaultListModel<String> model;
+	private JTextField textField;
 
 	/**
 	 * Create the frame.
@@ -168,6 +174,52 @@ public class VentanaAñadirValor extends JFrame {
 		});
 		btnVolver.setBounds(382, 347, 89, 23);
 		contentPane.add(btnVolver);
+	
+		list.setCellRenderer(new DefaultListCellRenderer() {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			
+			@Override
+		    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				
+				Component c= super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+					
+				String escrito= textField.getText();
+				
+				String jugadores= (String) list.getModel().getElementAt(index);
+				
+									
+				if((!escrito.isEmpty()) && (!escrito.isBlank()) && (jugadores.contains(escrito))) {
+					
+					c.setBackground(Color.red);
+					
+				}	else {
+					
+					c.setBackground(Color.white);
+					
+				}
+					
+					return c;
+				}
+			
+		});
+		
+		JLabel lblNewLabel = new JLabel("Jugador a buscar:");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblNewLabel.setBounds(329, 38, 180, 42);
+		contentPane.add(lblNewLabel);
+		
+		textField = new JTextField();
+		textField.setBounds(466, 51, 126, 20);
+		contentPane.add(textField);
+		textField.setColumns(10);
+	
+	
+	
 	}
 	
 	public void cargarJList() {
@@ -189,7 +241,6 @@ public class VentanaAñadirValor extends JFrame {
 			dbmanager.disconnect();
 			
 		}
-
 	}
 	
 
