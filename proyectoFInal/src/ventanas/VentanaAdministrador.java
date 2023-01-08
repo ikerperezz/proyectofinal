@@ -19,6 +19,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,8 +105,13 @@ public class VentanaAdministrador extends JFrame {
 					public void run() {
 						VentanaHilo v = new VentanaHilo(VentanaAdministrador.this);
 						v.setVisible(true);
-						DBManager dbmanager = new DBManager();
-						Connection conexion = dbmanager.getConn();
+						Connection conexion = null;
+						try {
+							conexion = DriverManager.getConnection("jdbc:sqlite:src/baseDatos/baseDatosProyecto.db");
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						try (PreparedStatement stmt = conexion.prepareStatement(
 								"SELECT nombreJugador, valor FROM jugadores ORDER BY valor DESC LIMIT 5 ")) {
 							ResultSet resultSet = stmt.executeQuery();
