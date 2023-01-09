@@ -582,6 +582,32 @@ public class DBManager {
 		}
 		return id;
 	}
+	
+	public int conseguirIdUsuario(String nombre) {
+		int id = 0;
+		List<UsuarioPublico> usu = crearLista();
+		
+		for (int i = 0; i < usu.size(); i++) {
+			if (nombre.contains(usu.get(i).getUsuario())) {
+				id = usu.get(i).getIdUsuarioPublico();
+				break;
+			}
+		}
+		return id;
+	}
+	
+	public int conseguirPuntosUsuario(String nombre) {
+		int puntos = 0;
+		List<UsuarioPublico> usu = crearLista();
+		
+		for (int i = 0; i < usu.size(); i++) {
+			if (nombre.contains(usu.get(i).getUsuario())) {
+				puntos = usu.get(i).getPuntos();
+				break;
+			}
+		}
+		return puntos;
+	}
 
 	public int conseguirMayorOferta(int id) {
 		try (Statement stmt = conn.createStatement()) {
