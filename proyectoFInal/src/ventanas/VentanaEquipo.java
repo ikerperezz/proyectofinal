@@ -135,7 +135,7 @@ public class VentanaEquipo extends JFrame {
 			
 			}
 		});
-		btnNewButton_1.setBounds(208, 157, 89, 23);
+		btnNewButton_1.setBounds(196, 133, 123, 23);
 		contentPane.add(btnNewButton_1);
 		
 		JButton btnDat = new JButton("Datos");
@@ -196,8 +196,45 @@ public class VentanaEquipo extends JFrame {
 	dbmanager.disconnect();
 			}
 		});
-		btnDat.setBounds(208, 209, 89, 23);
+		btnDat.setBounds(196, 167, 123, 23);
 		contentPane.add(btnDat);
+		
+		JButton btnAñadirAMercado = new JButton("Añadir a mercado");
+		btnAñadirAMercado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DBManager dbmanager= new DBManager();
+				dbmanager.conectar();
+				
+				
+				if((list_1.getSelectedIndex()==-1)&&(list_2.getSelectedIndex()==-1)) {
+					JOptionPane.showMessageDialog(VentanaEquipo.this,
+							"No hay ningún jugador seleccionado");
+				}else if(!(list_1.getSelectedIndex()==-1)&&!(list_2.getSelectedIndex()==-1)) {
+					JOptionPane.showMessageDialog(VentanaEquipo.this,
+							"Más de un jugador seleccionado");
+					list_2.clearSelection();
+					list_1.clearSelection();
+				}else if(!(list_2.getSelectedIndex()==-1)){
+					JOptionPane.showMessageDialog(VentanaEquipo.this,
+							"No puedes añadir un jugador titular al mercado");
+					
+				}else if(!(list_1.getSelectedIndex()==-1)){
+					int id = dbmanager.conseguirIdJugador(list_1.getSelectedValue());
+					int valor = dbmanager.conseguirValor(id);
+					dbmanager.eliminarJugadoresDePlantilla(id);
+					dbmanager.meterJugadoresMercado(id, valor, InterfazDeUsuarioPublico.usP);
+					JOptionPane.showMessageDialog(VentanaEquipo.this,
+							"Jugador añadido al mercado");
+				}
+				cargarJListSup();
+			cargarJListTit();
+			list_2.setModel(model);
+			list_1.setModel(modelsup);
+			}
+			
+		});
+		btnAñadirAMercado.setBounds(196, 201, 123, 23);
+		contentPane.add(btnAñadirAMercado);
 		
 	
 		
@@ -220,6 +257,7 @@ public class VentanaEquipo extends JFrame {
 			model.addElement(jug.get(i).toString());
 			}
 		}
+		dbmanager.disconnect();
 
 	}
 	

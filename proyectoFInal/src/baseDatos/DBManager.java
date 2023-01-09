@@ -411,6 +411,158 @@ public class DBManager {
 		
 	}
 	
+	public void meterJugadoresMercado(int idJugador, int valor, UsuarioPublico usP) {
+		try (PreparedStatement stmt = conn.prepareStatement("INSERT INTO mercado (idLiga, idJugador, ofertaminima, idUsuarioVenta) VALUES (?,?,?,?)")) {
+		
+				stmt.setInt(1, usP.getIdLiga());
+				stmt.setInt(2, idJugador);	
+				stmt.setInt(3, valor);
+				stmt.setString(4, usP.getUsuario());	
+				stmt.executeUpdate();
+				
+			
+			
+				} catch (SQLException e) {
+					System.out.format("Error añadiendo jugador a mercado", e);
+					e.printStackTrace();
+				}
+				
+	}
+	
+	public void eliminarJugadoresDePlantilla(int id) {
+		try (Statement stmt = conn.createStatement()) {
+			stmt.executeUpdate("DELETE FROM jugadorenliga where idJugador = " + id);
+		}catch (SQLException e) {
+			System.out.format("Error eliminando jugador", e);
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void devolverJugadoresDeUsuario() {
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT idjugador, idLiga, idUsuarioVenta FROM mercado where idUsuarioVenta is not null and ofertaMasAlta is null");
+			
+			while (rs.next()) {
+				
+				int idJugador = rs.getInt("idJugador");
+				String nombreUsuario = rs.getString("idUsuarioVenta");
+				int idLiga = rs.getInt("idLiga");
+
+				try (PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO jugadorenliga (idJugador,nombreUsuario, idLiga, titular) VALUES (?,?,?,?)")) {
+				
+				stmt1.setInt(1, idJugador);
+				stmt1.setString(2, nombreUsuario);	
+				stmt1.setInt(3, idLiga);
+				stmt1.setBoolean(4, false);	
+				stmt1.executeUpdate();
+				} catch (SQLException e) {
+					System.out.format("Error añadiendo jugador a liga", e);
+					e.printStackTrace();
+				}
+				
+			}
+			
+			} catch (SQLException e) {
+			System.out.format("Error seleccionandojugadores", e);
+			e.printStackTrace();
+		}
+		}
+	
+	public void cambiarJugadoresDeUsuario() {
+		List<Oferta> ofertas = new ArrayList<Oferta>();
+		List<UsuarioPublico> dinero = new ArrayList<UsuarioPublico>();
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT idjugador, idLiga, idUsuario, ofertaMasAlta, idUsuarioVenta FROM mercado where idUsuarioVenta is not null and ofertaMasAlta is not null");
+			
+			while (rs.next()) {
+				
+				int idjug = rs.getInt("idJugador");
+				String us = rs.getString("idUsuario");
+				int idLiga = rs.getInt("idLiga");
+				int oferta = rs.getInt("ofertaMasAlta");
+				String us2 = rs.getString("idUsuarioVenta");
+				Oferta ofer = new Oferta(us,us2, idjug, oferta,idLiga);
+				ofertas.add(ofer);
+
+				try (PreparedStatement stmt1 = conn.prepareStatement("INSERT INTO jugadorenliga (idJugador,nombreUsuario, idLiga, titular) VALUES (?,?,?,?)")) {
+				
+				stmt1.setInt(1, idjug);
+				stmt1.setString(2, us);	
+				stmt1.setInt(3, idLiga);
+				stmt1.setBoolean(4, false);	
+				stmt1.executeUpdate();
+				} catch (SQLException e) {
+					System.out.format("Error añadiendo jugador a liga", e);
+					e.printStackTrace();
+				}
+				
+			}
+			
+			} catch (SQLException e) {
+			System.out.format("Error seleccionandojugadores", e);
+			e.printStackTrace();
+		}
+		
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery(
+					"SELECT nombreDeUsuario, dineroDisponible FROM usuario");
+
+			while (rs.next()) {
+				int dineroDis = rs.getInt("dineroDisponible");
+				String nombre = rs.getString("nombreDeUsuario");
+				UsuarioPublico us= new UsuarioPublico(nombre,"",0,0,dineroDis,0);
+				dinero.add(us);	
+			}
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+			e.printStackTrace();
+		}
+		
+		
+		for (int i = 0; i < dinero.size(); i++) {
+			
+			for (int j = 0; j < ofertas.size(); j++) {
+				if(dinero.get(i).getUsuario().equals(ofertas.get(j).getNombreUsuario())) {
+					int valor = dinero.get(i).getDineroDisponible() - ofertas.get(j).getOferta();
+					dinero.get(i).setDineroDisponible(valor);
+				}
+				if(dinero.get(i).getUsuario().equals(ofertas.get(j).getNombreUsuario2())) {
+					int valor = dinero.get(i).getDineroDisponible() + ofertas.get(j).getOferta();
+					dinero.get(i).setDineroDisponible(valor);
+				}
+			}	
+		}
+		for (int i = 0; i < dinero.size(); i++) {
+			try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET dineroDisponible=? WHERE nombreDeUsuario = '"+dinero.get(i).getUsuario()+"'" )) {
+			stmt.setInt(1, dinero.get(i).getDineroDisponible());
+			stmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.format("Error actualizando oferta", e);
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		}
+	
+	
+	
+	public void eliminarJugadoresCambiados() {
+		try (Statement stmt = conn.createStatement()) {
+			stmt.executeUpdate("DELETE FROM mercado where idUsuarioVenta is not null");
+		}catch (SQLException e) {
+			System.out.format("Error eliminando jugador", e);
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 	public List<Integer> crearListaIdLigas() {
 		
 		List<Integer> up = new ArrayList<Integer>();
@@ -504,7 +656,7 @@ public class DBManager {
 					int idjug = rs.getInt("idJugador");
 					int oferta = rs.getInt("ofertaMasAlta");
 					String us = rs.getString("idUsuario");
-					Oferta ofer = new Oferta(us, idjug, oferta,idLiga);
+					Oferta ofer = new Oferta(us,"", idjug, oferta,idLiga);
 					ofertas.add(ofer);
 				
 					}

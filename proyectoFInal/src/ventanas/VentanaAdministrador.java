@@ -91,6 +91,9 @@ public class VentanaAdministrador extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				DBManager dbmanager = new DBManager();
 				dbmanager.conectar();
+				dbmanager.devolverJugadoresDeUsuario();
+				dbmanager.cambiarJugadoresDeUsuario();
+				dbmanager.eliminarJugadoresCambiados();
 				dbmanager.updateJugador();
 				dbmanager.eliminarMercado();
 				List<Integer> ligas = dbmanager.crearListaIdLigas();
