@@ -996,6 +996,20 @@ public class DBManager {
 			System.out.format("No se puedo actualizar el valor del jugador");
 		}
 	}
+	
+	public void updatePuntosUsuarios(int id, int puntos) {
+		try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET puntos = ? WHERE idUsuario = " + id)) {
+
+			stmt.setInt(1, puntos);
+
+			stmt.executeUpdate();
+
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.format("No se puedo actualizar los puntos del usuario");
+		}
+	}
 
 	public void implementacionHilo() {
 		VentanaHilo v = new VentanaHilo(null);
