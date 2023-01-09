@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import baseDatos.DBManager;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSpinner;
@@ -94,8 +95,30 @@ public class VentanaRepartirPuntos extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				DBManager dbmanager = new DBManager();
+				dbmanager.conectar();
 				
 				
+				int value =((int)haundi.getValue()*10) +  ((int)spinner.getValue());
+				
+				if(!(list.getSelectedIndex()==-1)) {
+					int id = dbmanager.conseguirIdUsuario(list.getSelectedValue());
+					
+					int puntosIniciales=dbmanager.conseguirPuntosUsuario(list.getSelectedValue());
+					
+					int puntosFinales=value+puntosIniciales;
+					
+					dbmanager.updatePuntosUsuarios(id, puntosFinales);
+					dbmanager.disconnect();
+					
+					
+					JOptionPane.showMessageDialog(VentanaRepartirPuntos.this,
+							"Puntos repartidos");
+					}else {
+						JOptionPane.showMessageDialog(VentanaRepartirPuntos.this,
+								"No hay ningun usuario seleccionado");
+					}
+					
 			}
 		});
 		btnNewButton.setBounds(287, 194, 105, 36);
