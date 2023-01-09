@@ -67,6 +67,15 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnCrearAdmin);
 		
 		JButton btnRepartitPuntos = new JButton("        REPARTIR PUNTOS DE LA JORNADA");
+		btnRepartitPuntos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaRepartirPuntos v= new VentanaRepartirPuntos();
+				v.setVisible(true);
+				VentanaAdministrador.this.setVisible(false);
+				
+			}
+		});
 		btnRepartitPuntos.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnRepartitPuntos);
 		
