@@ -902,6 +902,26 @@ public class DBManager {
 		}
 		return null;
 	}
+	
+	public Map<String, Integer> crearListaUsuariosPuntos() {
+		Map<String, Integer> usu = new HashMap<String, Integer>();
+		
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery("SELECT nombreDeUsuario, puntos FROM usuario");
+
+			while (rs.next()) {
+				String nombreUsuario = rs.getString("nombreDeUsuario");
+				int puntos = rs.getInt("puntos");
+				usu.put(nombreUsuario, puntos);
+
+			}
+			return usu;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public List<String> crearListaJugadoresNombre() {
 		List<String> jug = new ArrayList<String>();
@@ -914,6 +934,23 @@ public class DBManager {
 
 			}
 			return jug;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+		}
+		return null;
+	}
+	
+	public List<String> crearListaUsuariosNombre() {
+		List<String> usu = new ArrayList<String>();
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery("SELECT nombreDeUsuario FROM usuario");
+
+			while (rs.next()) {
+				String nombreUsuario = rs.getString("nombreDeUsuario");
+				usu.add(nombreUsuario);
+
+			}
+			return usu;
 		} catch (SQLException e) {
 			System.out.format("Error creando lista", e);
 		}
