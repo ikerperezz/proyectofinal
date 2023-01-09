@@ -106,28 +106,7 @@ public class VentanaAdministrador extends JFrame {
 				Thread hilo = new Thread() {
 					@Override
 					public void run() {
-						VentanaHilo v = new VentanaHilo(VentanaAdministrador.this);
-						v.setVisible(true);
-						Connection conexion = null;
-						try {
-							conexion = DriverManager.getConnection("jdbc:sqlite:src/baseDatos/baseDatosProyecto.db");
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-						try (PreparedStatement stmt = conexion.prepareStatement(
-								"SELECT nombreJugador, valor FROM jugadores ORDER BY valor DESC LIMIT 5 ")) {
-							ResultSet resultSet = stmt.executeQuery();
-							DefaultListModel<String> model = new DefaultListModel<>();
-							while (resultSet.next()) {
-								model.addElement(resultSet.getString("nombreJugador"));
-								model.addElement(resultSet.getString("valor"));
-							}
-							JList<String> listaJugadores = new JList<>(model);
-
-						} catch (SQLException e) {
-							e.printStackTrace();
-						}
+						dbmanager.implementacionHilo();
 					}
 				};
 				hilo.start();
