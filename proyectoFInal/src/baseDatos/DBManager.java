@@ -1049,6 +1049,27 @@ public class DBManager implements IManejoDeDatos{
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
+	public List<Integer> sacarpuntos(){
+		List<Integer> arr = new ArrayList<Integer>();
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery("SELECT puntos FROM usuario");
+
+			while (rs.next()) {
+				int puntos = rs.getInt("puntos");
+				arr.add(puntos);
+
+			}
+			return arr;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+		}
+		
+		return null;
+		
+	}
 
 	public Connection getConn() {
 		return conn;
