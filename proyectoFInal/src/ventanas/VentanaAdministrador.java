@@ -80,6 +80,15 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnRepartitPuntos);
 		
 		JButton btnRepartirDinero = new JButton("         REPARTIR DINERO DE LA JORNADA");
+		btnRepartirDinero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				VentanaRepartirDinero v= new VentanaRepartirDinero();
+				v.setVisible(true);
+				VentanaAdministrador.this.setVisible(false);
+				
+			}
+		});
 		btnRepartirDinero.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnRepartirDinero);
 		
