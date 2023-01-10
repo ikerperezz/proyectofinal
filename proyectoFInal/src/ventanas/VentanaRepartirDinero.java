@@ -174,7 +174,7 @@ public class VentanaRepartirDinero extends JFrame {
 					
 					
 					JOptionPane.showMessageDialog(VentanaRepartirDinero.this,
-							"Puntos repartidos");
+							"Dinero repartidos");
 					}else {
 						JOptionPane.showMessageDialog(VentanaRepartirDinero.this,
 								"No hay ningun usuario seleccionado");
