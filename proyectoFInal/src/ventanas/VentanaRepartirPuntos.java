@@ -121,7 +121,7 @@ public class VentanaRepartirPuntos extends JFrame {
 					
 			}
 		});
-		btnNewButton.setBounds(287, 194, 105, 36);
+		btnNewButton.setBounds(272, 194, 138, 36);
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("volver");
