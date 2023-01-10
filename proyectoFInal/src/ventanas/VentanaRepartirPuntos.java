@@ -106,15 +106,29 @@ public class VentanaRepartirPuntos extends JFrame {
 					
 					int puntosIniciales=dbmanager.conseguirPuntosUsuario(list.getSelectedValue());
 					
+					int dineroInicial=dbmanager.conseguirDineroUsuario(list.getSelectedValue());
+					
+					if(dineroInicial>=0) {
+					
 					int puntosFinales=value+puntosIniciales;
 					
 					dbmanager.updatePuntosUsuarios(id, puntosFinales);
-					dbmanager.disconnect();
-					
 					
 					JOptionPane.showMessageDialog(VentanaRepartirPuntos.this,
 							"Puntos repartidos");
-					}else {
+					
+					} else {
+						
+						JOptionPane.showMessageDialog(VentanaRepartirPuntos.this,
+								"No puedes dar puntos a ningun usuario con dinero en negativo");
+						
+					}
+					dbmanager.disconnect();
+					
+					
+					
+					}
+				else {
 						JOptionPane.showMessageDialog(VentanaRepartirPuntos.this,
 								"No hay ningun usuario seleccionado");
 					}
@@ -123,6 +137,7 @@ public class VentanaRepartirPuntos extends JFrame {
 		});
 		btnNewButton.setBounds(272, 194, 138, 36);
 		contentPane.add(btnNewButton);
+		
 		
 		JButton btnNewButton_1 = new JButton("volver");
 		btnNewButton_1.addActionListener(new ActionListener() {
