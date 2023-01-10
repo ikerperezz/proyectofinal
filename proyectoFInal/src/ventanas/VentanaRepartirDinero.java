@@ -4,20 +4,28 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+
+import baseDatos.DBManager;
+
 import javax.swing.JList;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.List;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 
 public class VentanaRepartirDinero extends JFrame {
 
 	private JPanel contentPane;
+	private DefaultListModel<String> model;
 
 	/**
 	 * Launch the application.
@@ -47,9 +55,13 @@ public class VentanaRepartirDinero extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JList list = new JList();
-		list.setBounds(31, 83, 217, 225);
-		contentPane.add(list);
+				
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(31, 83, 217, 225);
+		contentPane.add(scrollPane);
+		cargarJList();
+		JList<String> list = new JList<String>(model);
+		scrollPane.setViewportView(list);
 		
 		JLabel lblNewLabel = new JLabel("USUARIOS");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -156,4 +168,26 @@ public class VentanaRepartirDinero extends JFrame {
 		btnVolver.setBounds(351, 326, 90, 23);
 		contentPane.add(btnVolver);
 	}
+	
+	public void cargarJList() {
+		// TODO Auto-generated method stub
+		DBManager dbmanager= new DBManager();
+		dbmanager.conectar();
+		
+		Map<String, Integer> usuario = dbmanager.crearListaUsuariosDinero();
+		
+		List<String> nom = dbmanager.crearListaUsuariosNombre();
+		
+		model = new DefaultListModel<String>();
+		
+	for (int i = 0; i < nom.size(); i++) {
+		int value = usuario.get(nom.get(i));
+		String key = nom.get(i);
+		
+		model.addElement(key +" - "+ value + "€");
+	}
+			
+			dbmanager.disconnect();
+			
+		}
 }
