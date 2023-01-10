@@ -27,10 +27,11 @@ import clases.Jugador;
 import clases.Liga;
 import clases.Oferta;
 import clases.UsuarioPublico;
+import interfaces.IManejoDeDatos;
 import ventanas.VentanaAdministrador;
 import ventanas.VentanaHilo;
 
-public class DBManager {
+public class DBManager implements IManejoDeDatos{
 
 	private Connection conn = null;
 
@@ -894,34 +895,7 @@ public class DBManager {
 		}
 	}
 
-	public List<Administrador> crearListaAdministradores() {
 
-		List<Administrador> admins = new ArrayList<Administrador>();
-
-		try (BufferedReader reader = new BufferedReader(new FileReader("src/ficheroExterno/Administradores.csv"))) {
-			reader.readLine();
-			String line = null;
-
-			while ((line = reader.readLine()) != null) {
-				String[] tokens = line.split(";");
-				String nombreUsuario = tokens[0];
-
-				String contraseina = tokens[1];
-
-				admins.add(new Administrador(nombreUsuario, contraseina));
-
-			}
-
-			reader.close();
-
-		} catch (Exception e) {
-			System.out.format("Error creando lista", e);
-			e.printStackTrace();
-		}
-
-		return admins;
-
-	}
 
 	public Map<String, Integer> crearListaJugadoresValor() {
 		Map<String, Integer> jug = new HashMap<String, Integer>();

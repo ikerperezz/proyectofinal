@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import baseDatos.CSVManager;
 import baseDatos.DBManager;
 import clases.Administrador;
 import clases.UsuarioPublico;
@@ -187,10 +188,10 @@ public class InicioSesion extends JFrame  {
 			
 			
 			public void actionPerformed(ActionEvent e) {
-				
+				CSVManager csvmanager = new CSVManager();
 				dbmanager.conectar();
 				List<UsuarioPublico> up = dbmanager.crearLista();
-				List<Administrador> admins= dbmanager.crearListaAdministradores();
+				List<Administrador> admins= csvmanager.crearLista();
 				
 
 				boolean acceso = false;
