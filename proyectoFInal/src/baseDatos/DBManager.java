@@ -608,6 +608,19 @@ public class DBManager {
 		}
 		return puntos;
 	}
+	
+	public int conseguirDineroUsuario(String nombre) {
+		int dinero = 0;
+		List<UsuarioPublico> usu = crearLista();
+		
+		for (int i = 0; i < usu.size(); i++) {
+			if (nombre.contains(usu.get(i).getUsuario())) {
+				dinero = usu.get(i).getDineroDisponible();
+				break;
+			}
+		}
+		return dinero;
+	}
 
 	public int conseguirMayorOferta(int id) {
 		try (Statement stmt = conn.createStatement()) {
@@ -948,6 +961,26 @@ public class DBManager {
 		}
 		return null;
 	}
+	
+	public Map<String, Integer> crearListaUsuariosDinero() {
+		Map<String, Integer> usu = new HashMap<String, Integer>();
+		
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet rs = stmt.executeQuery("SELECT nombreDeUsuario, dineroDisponible FROM usuario");
+
+			while (rs.next()) {
+				String nombreUsuario = rs.getString("nombreDeUsuario");
+				int dinero = rs.getInt("dineroDisponible");
+				usu.put(nombreUsuario, dinero);
+
+			}
+			return usu;
+		} catch (SQLException e) {
+			System.out.format("Error creando lista", e);
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	public List<String> crearListaJugadoresNombre() {
 		List<String> jug = new ArrayList<String>();
@@ -1008,6 +1041,20 @@ public class DBManager {
 			conn.close();
 		} catch (SQLException e) {
 			System.out.format("No se puedo actualizar los puntos del usuario");
+		}
+	}
+	
+	public void updateDineroUsuarios(int id, int dinero) {
+		try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET dineroDisponible = ? WHERE idUsuario = " + id)) {
+
+			stmt.setInt(1, dinero);
+
+			stmt.executeUpdate();
+
+			stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			System.out.format("No se pudo actualizar el dinero del usuario");
 		}
 	}
 
