@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import baseDatos.DBManager;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSpinner;
@@ -152,6 +153,39 @@ public class VentanaRepartirDinero extends JFrame {
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnNewButton = new JButton("DAR DINERO");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				DBManager dbmanager = new DBManager();
+				dbmanager.conectar();
+				
+				int value =((int)spinner_1.getValue()*10000000) +  ((int)spinner_1_1.getValue()*1000000) + ((int)spinner_1_2.getValue()*100000)+ ((int)spinner_1_3.getValue()*10000)+ ((int)spinner_1_4.getValue()*1000)+ ((int)spinner_1_5.getValue()*100)+ ((int)spinner_1_6.getValue()*10)+ ((int)spinner_1_7.getValue()*1);
+				
+				if(!(list.getSelectedIndex()==-1)) {
+					
+					int id = dbmanager.conseguirIdUsuario(list.getSelectedValue());
+					
+					int dineroInicial=dbmanager.conseguirDineroUsuario(list.getSelectedValue());
+					
+					int dineroFinal=value+dineroInicial;
+					
+					dbmanager.updateDineroUsuarios(id, dineroFinal);
+					dbmanager.disconnect();
+					
+					
+					JOptionPane.showMessageDialog(VentanaRepartirDinero.this,
+							"Puntos repartidos");
+					}else {
+						JOptionPane.showMessageDialog(VentanaRepartirDinero.this,
+								"No hay ningun usuario seleccionado");
+					}
+					
+			}
+				
+				
+				
+			
+		});
 		btnNewButton.setBounds(333, 185, 147, 40);
 		contentPane.add(btnNewButton);
 		
