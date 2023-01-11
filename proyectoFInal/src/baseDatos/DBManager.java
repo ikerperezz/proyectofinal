@@ -14,13 +14,11 @@ import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JList;
 import clases.Jugador;
 import clases.Liga;
 import clases.Oferta;
 import clases.UsuarioPublico;
 import interfaces.IManejoDeDatos;
-import ventanas.VentanaHilo;
 
 public class DBManager implements IManejoDeDatos {
 
