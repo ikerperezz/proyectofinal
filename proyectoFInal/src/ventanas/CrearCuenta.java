@@ -6,6 +6,8 @@ import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
 import clases.UsuarioPublico;
+import configuracion.PropertiesManager;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -83,8 +85,11 @@ public class CrearCuenta extends JFrame {
 					}
 				}
 				if (crearUsuario == true) {
-					UsuarioPublico us = new UsuarioPublico(textField.getText(), passwordField.getText(), 0, 0, 100000000,
+					int saldoInicial = PropertiesManager.saldoInicial();
+					System.out.println(saldoInicial);
+					UsuarioPublico us = new UsuarioPublico(textField.getText(), passwordField.getText(), 0, 0, saldoInicial,
 							0);
+					System.out.println(us.getDineroDisponible());
 					nombreUsuario = textField.getText();
 					dbmanager.actualizarUsuarios(us);
 					VentanaOpcionesLiga v = new VentanaOpcionesLiga(CrearCuenta.this);
