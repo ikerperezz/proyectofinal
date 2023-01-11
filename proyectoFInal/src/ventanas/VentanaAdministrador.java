@@ -126,7 +126,8 @@ public class VentanaAdministrador extends JFrame {
 				Thread hilo = new Thread() {
 					@Override
 					public void run() {
-						dbmanager.implementacionHilo();
+						VentanaHilo v = new VentanaHilo(VentanaAdministrador.this);
+						v.setVisible(true);
 					}
 				};
 				hilo.start();
