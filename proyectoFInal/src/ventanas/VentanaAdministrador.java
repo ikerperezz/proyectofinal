@@ -43,18 +43,21 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(0, 1, 0, 0));
+		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Bienvenido Administrador");
+		lblNewLabel.setBounds(5, 6, 377, 46);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("¿QUE QUIERES HACER?");
+		lblNewLabel_1.setBounds(5, 52, 201, 46);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(lblNewLabel_1);
 		
 		JButton btnCrearAdmin = new JButton("      AÑADIR NUEVO ADMINISTRADOR");
+		btnCrearAdmin.setBounds(5, 144, 377, 46);
 		btnCrearAdmin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -63,10 +66,15 @@ public class VentanaAdministrador extends JFrame {
 				VentanaAdministrador.this.setVisible(false);
 			}
 		});
+		
+		JButton button = new JButton("New button");
+		button.setBounds(5, 98, 377, 46);
+		contentPane.add(button);
 		btnCrearAdmin.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnCrearAdmin);
 		
 		JButton btnRepartitPuntos = new JButton("        REPARTIR PUNTOS DE LA JORNADA");
+		btnRepartitPuntos.setBounds(5, 190, 377, 46);
 		btnRepartitPuntos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -80,6 +88,7 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnRepartitPuntos);
 		
 		JButton btnRepartirDinero = new JButton("         REPARTIR DINERO DE LA JORNADA");
+		btnRepartirDinero.setBounds(5, 236, 377, 46);
 		btnRepartirDinero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -93,6 +102,7 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnRepartirDinero);
 		
 		JButton btnNewButton_3 = new JButton("        CAMBIAR VALOR DE LOS JUGADORES");
+		btnNewButton_3.setBounds(5, 282, 377, 46);
 		btnNewButton_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaAñadirValor v = new VentanaAñadirValor();
@@ -104,6 +114,7 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(btnNewButton_3);
 		
 		JButton btnCrearMercado = new JButton("CREAR MERCADO");
+		btnCrearMercado.setBounds(5, 328, 377, 46);
 		btnCrearMercado.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		btnCrearMercado.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -136,5 +147,20 @@ public class VentanaAdministrador extends JFrame {
 			
 		});
 		contentPane.add(btnCrearMercado);
+		
+		JButton btnNewButton = new JButton("Cerrar sesion");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				InicioSesion v= new InicioSesion();
+				v.setVisible(true);
+				VentanaAdministrador.this.setVisible(false);
+				JOptionPane.showMessageDialog(VentanaAdministrador.this,
+						"Se cerro la sesion");
+				
+			}
+		});
+		btnNewButton.setBounds(254, 52, 123, 23);
+		contentPane.add(btnNewButton);
 	}
 }
