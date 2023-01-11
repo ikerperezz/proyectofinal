@@ -56,7 +56,7 @@ public class VentanaAñadirValor extends JFrame {
 		scrollPane.setViewportView(list);
 		
 		JLabel lblNewLabel_1 = new JLabel("€");
-		lblNewLabel_1.setBounds(560, 142, 20, 23);
+		lblNewLabel_1.setBounds(572, 160, 20, 23);
 		contentPane.add(lblNewLabel_1);
 		SpinnerModel spModel_1 = new SpinnerNumberModel(0, //initial value
                 0, //min
@@ -96,37 +96,37 @@ public class VentanaAñadirValor extends JFrame {
                 1); //step
 		
 		JSpinner spinner_1 = new JSpinner(spModel_1);
-		spinner_1.setBounds(303, 143, 30, 20);
+		spinner_1.setBounds(303, 161, 30, 20);
 		contentPane.add(spinner_1);
 		
 		
 		
 		JSpinner spinner_2 = new JSpinner(spModel);
-		spinner_2.setBounds(329, 143, 30, 20);
+		spinner_2.setBounds(332, 161, 30, 20);
 		contentPane.add(spinner_2);
 		
 		JSpinner spinner_3 = new JSpinner(spModel2);
-		spinner_3.setBounds(372, 142, 30, 20);
+		spinner_3.setBounds(372, 161, 30, 20);
 		contentPane.add(spinner_3);
 		
 		JSpinner spinner_1_1 = new JSpinner(spModel3);
-		spinner_1_1.setBounds(400, 142, 30, 20);
+		spinner_1_1.setBounds(400, 161, 30, 20);
 		contentPane.add(spinner_1_1);
 		
 		JSpinner spinner_2_1 = new JSpinner(spModel4);
-		spinner_2_1.setBounds(426, 142, 30, 20);
+		spinner_2_1.setBounds(427, 161, 30, 20);
 		contentPane.add(spinner_2_1);
 		
 		JSpinner spinner_3_1 = new JSpinner(spModel5);
-		spinner_3_1.setBounds(466, 142, 30, 20);
+		spinner_3_1.setBounds(466, 161, 30, 20);
 		contentPane.add(spinner_3_1);
 		
 		JSpinner spinner_2_1_1 = new JSpinner(spModel6);
-		spinner_2_1_1.setBounds(520, 142, 30, 20);
+		spinner_2_1_1.setBounds(522, 161, 30, 20);
 		contentPane.add(spinner_2_1_1);
 		
 		JSpinner spinner_1_1_1 = new JSpinner(spModel7);
-		spinner_1_1_1.setBounds(494, 142, 30, 20);
+		spinner_1_1_1.setBounds(494, 161, 30, 20);
 		contentPane.add(spinner_1_1_1);
 		
 		JButton btnCambiarValor = new JButton("Cambiar Valor");
@@ -153,15 +153,15 @@ public class VentanaAñadirValor extends JFrame {
 				}
 			}
 		});
-		btnCambiarValor.setBounds(347, 180, 146, 23);
+		btnCambiarValor.setBounds(378, 217, 146, 23);
 		contentPane.add(btnCambiarValor);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("   . ");
-		lblNewLabel_1_1.setBounds(356, 146, 20, 23);
+		lblNewLabel_1_1.setBounds(354, 160, 20, 23);
 		contentPane.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("   . ");
-		lblNewLabel_1_1_1.setBounds(451, 146, 20, 23);
+		lblNewLabel_1_1_1.setBounds(451, 160, 20, 23);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		JButton btnVolver = new JButton("Volver");
@@ -175,38 +175,7 @@ public class VentanaAñadirValor extends JFrame {
 		btnVolver.setBounds(382, 347, 89, 23);
 		contentPane.add(btnVolver);
 	
-		list.setCellRenderer(new DefaultListCellRenderer() {
-			
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			
-			@Override
-		    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-				
-				Component c= super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-					
-				String escrito= textField.getText();
-				
-				String jugadores= (String) list.getModel().getElementAt(index);
-				
-									
-				if((!escrito.isEmpty()) && (!escrito.isBlank()) && (jugadores.contains(escrito))) {
-					
-					c.setBackground(Color.red);
-					
-				}	else {
-					
-					c.setBackground(Color.white);
-					
-				}
-					
-					return c;
-				}
-			
-		});
+		
 		
 		JLabel lblNewLabel = new JLabel("Jugador a buscar:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -217,6 +186,49 @@ public class VentanaAñadirValor extends JFrame {
 		textField.setBounds(466, 51, 126, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				list.setCellRenderer(new DefaultListCellRenderer() {
+					
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
+					
+					@Override
+				    public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+						
+						Component c= super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+							
+						String escrito= textField.getText();
+						
+						String jugadores= (String) list.getModel().getElementAt(index);
+						
+											
+						if((!escrito.isEmpty()) && (!escrito.isBlank()) && (jugadores.contains(escrito))) {
+							
+							c.setBackground(Color.CYAN);
+							
+						}	else {
+							
+							c.setBackground(Color.white);
+							
+						}
+							
+							return c;
+						}
+					
+				});
+				
+				
+			}
+		});
+		btnBuscar.setBounds(407, 97, 89, 23);
+		contentPane.add(btnBuscar);
 	
 	
 	
