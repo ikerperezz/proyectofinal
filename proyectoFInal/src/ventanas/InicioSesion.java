@@ -218,6 +218,7 @@ public class InicioSesion extends JFrame  {
 						InicioSesion.this.setVisible(false);
 						Logger logger = Logger.getLogger( "Inicio sesión");
 						logger.info("Sesión iniciada");
+						textField.setText("");
 						passwordField.setText("");
 						acceso = true;
 						break;
@@ -239,6 +240,7 @@ public class InicioSesion extends JFrame  {
 					InicioSesion.this.setVisible(false);
 					Logger logger = Logger.getLogger( "Inicio sesión");
 					logger.info("Sesión iniciada");
+					textField.setText("");
 					passwordField.setText("");
 					acceso = true;
 					break;
