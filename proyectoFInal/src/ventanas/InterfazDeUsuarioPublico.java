@@ -9,6 +9,8 @@ import clases.Usuario;
 import clases.UsuarioPublico;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.Color;
@@ -91,38 +93,6 @@ public class InterfazDeUsuarioPublico extends JFrame {
 		botonAjustes.setBackground(Color.RED);
 		botonAjustes.setFont(new Font("Tahoma", Font.BOLD, 15));
 		contentPane.add(botonAjustes);
-		
-				JButton botonMercado = new JButton("MERCADO");
-				botonMercado.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-
-						VentanaMercado mercado = new VentanaMercado();
-						mercado.setVisible(true);
-						InterfazDeUsuarioPublico.this.setVisible(false);
-
-					}
-				});
-				
-						JButton botonEquipo = new JButton("EQUIPO");
-						botonEquipo.addActionListener(new ActionListener() {
-							public void actionPerformed(ActionEvent e) {
-
-								VentanaEquipo equipo = new VentanaEquipo();
-								equipo.setVisible(true);
-								InterfazDeUsuarioPublico.this.setVisible(false);
-							}
-						});
-						
-								JButton botonClasificacion = new JButton("CLASIFICACION DE LIGA");
-								botonClasificacion.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-
-										VentanaClasificacion clasifi = new VentanaClasificacion();
-										clasifi.setVisible(true);
-										InterfazDeUsuarioPublico.this.setVisible(false);
-
-									}
-								});
 												
 														JLabel labelNombreLiga = new JLabel("Liga con ID " + usP.getIdLiga());
 														labelNombreLiga.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -155,30 +125,73 @@ public class InterfazDeUsuarioPublico extends JFrame {
 										
 										JLabel label_11 = new JLabel("");
 										contentPane.add(label_11);
+										
+												JButton botonClasificacion = new JButton("CLASIFICACION DE LIGA");
+												botonClasificacion.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+
+														VentanaClasificacion clasifi = new VentanaClasificacion();
+														clasifi.setVisible(true);
+														InterfazDeUsuarioPublico.this.setVisible(false);
+
+													}
+												});
+												botonClasificacion.setBackground(new Color(255, 175, 175));
+												botonClasificacion.setFont(new Font("Tahoma", Font.BOLD, 11));
+												contentPane.add(botonClasificacion);
+										
+												JButton botonEquipo = new JButton("EQUIPO");
+												botonEquipo.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+
+														VentanaEquipo equipo = new VentanaEquipo();
+														equipo.setVisible(true);
+														InterfazDeUsuarioPublico.this.setVisible(false);
+													}
+												});
+												botonEquipo.setBackground(Color.YELLOW);
+												botonEquipo.setFont(new Font("Tahoma", Font.BOLD, 16));
+												contentPane.add(botonEquipo);
+										
+												JButton botonMercado = new JButton("MERCADO");
+												botonMercado.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+
+														VentanaMercado mercado = new VentanaMercado();
+														mercado.setVisible(true);
+														InterfazDeUsuarioPublico.this.setVisible(false);
+
+													}
+												});
+												botonMercado.setBackground(Color.GREEN);
+												botonMercado.setFont(new Font("Tahoma", Font.BOLD, 15));
+												contentPane.add(botonMercado);
+										
+										JButton btnNewButton = new JButton("CLASIFICACION GENERAL");
+										btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 11));
+										btnNewButton.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												VentanaClasificacionGeneral v = new VentanaClasificacionGeneral();
+												v.setVisible(true);
+												InterfazDeUsuarioPublico.this.setVisible(false);
+												
+											}
+										});
+										btnNewButton.setBackground(new Color(255, 160, 122));
+										contentPane.add(btnNewButton);
 								
-										JButton botonInicio = new JButton("INICIO");
+										JButton botonInicio = new JButton("CERRAR SESION");
+										botonInicio.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												
+												InicioSesion v= new InicioSesion();
+												v.setVisible(true);
+												InterfazDeUsuarioPublico.this.setVisible(false);
+												JOptionPane.showMessageDialog(InterfazDeUsuarioPublico.this,
+														"Se cerro la sesion");
+											}
+										});
 										botonInicio.setFont(new Font("Tahoma", Font.BOLD, 14));
 										contentPane.add(botonInicio);
-								botonClasificacion.setBackground(new Color(255, 175, 175));
-								botonClasificacion.setFont(new Font("Tahoma", Font.BOLD, 11));
-								contentPane.add(botonClasificacion);
-						botonEquipo.setBackground(Color.YELLOW);
-						botonEquipo.setFont(new Font("Tahoma", Font.BOLD, 16));
-						contentPane.add(botonEquipo);
-				botonMercado.setBackground(Color.GREEN);
-				botonMercado.setFont(new Font("Tahoma", Font.BOLD, 15));
-				contentPane.add(botonMercado);
-		
-		JButton btnNewButton = new JButton("CLASIFICACION");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				VentanaClasificacionGeneral v = new VentanaClasificacionGeneral();
-				v.setVisible(true);
-				InterfazDeUsuarioPublico.this.setVisible(false);
-				
-			}
-		});
-		btnNewButton.setBackground(new Color(255, 160, 122));
-		contentPane.add(btnNewButton);
 	}
 }
