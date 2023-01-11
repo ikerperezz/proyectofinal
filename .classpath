@@ -6,7 +6,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="proyectoFInal/src"/>
 	<classpathentry kind="lib" path="proyectoFInal/jgoodies-forms-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="proyectoFInal/jgoodies-forms-1.8.0.jar"/>

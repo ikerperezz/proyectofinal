@@ -52,7 +52,7 @@ public class VentanaAdministrador extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("¿QUE QUIERES HACER?");
-		lblNewLabel_1.setBounds(5, 52, 201, 46);
+		lblNewLabel_1.setBounds(5, 68, 201, 46);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(lblNewLabel_1);
 		
@@ -66,10 +66,6 @@ public class VentanaAdministrador extends JFrame {
 				VentanaAdministrador.this.setVisible(false);
 			}
 		});
-		
-		JButton button = new JButton("New button");
-		button.setBounds(5, 98, 377, 46);
-		contentPane.add(button);
 		btnCrearAdmin.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		contentPane.add(btnCrearAdmin);
 		
@@ -160,7 +156,7 @@ public class VentanaAdministrador extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(254, 52, 123, 23);
+		btnNewButton.setBounds(254, 63, 123, 23);
 		contentPane.add(btnNewButton);
 	}
 }
