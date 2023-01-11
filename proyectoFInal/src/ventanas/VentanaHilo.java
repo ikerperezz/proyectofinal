@@ -36,14 +36,12 @@ public class VentanaHilo extends JFrame {
 		contentPane.add(list);
 
 		JLabel lblNewLabel = new JLabel("Jugadores más caros del mercado");
-		lblNewLabel.setBounds(132, 34, 199, 36);
+		lblNewLabel.setBounds(132, 34, 260, 36);
 		contentPane.add(lblNewLabel);
 
 		JButton btnNewButton = new JButton("Volver");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaAdministrador v = new VentanaAdministrador();
-				v.setVisible(true);
 				VentanaHilo.this.setVisible(false);
 			}
 		});
