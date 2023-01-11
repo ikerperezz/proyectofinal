@@ -4,11 +4,6 @@ Con esta aplicación tendremos la oportunidad de poder competir con nuestros ami
 el mejor equipo posible y al final de cada jornada, dependiendo de los resultados reales que se han dado en los partidos de la liga Española, recibir una cantidad
 de puntos. Estos puntos dependen del rendimiento que han tenido los jugadores en esa jornada. 
 
-En el momento que un nuevo usuario se una a una liga, se le asignará un equipo y tendrña que decidir cuales son sus jugadores titulares y sus jugadores suplentes. 
-Tendrá la posibilidad de vender a los suplentes que no le interesen y de fichar a jugadores que le gusten del mercado. Su saldo inicial será de 100.000.000€ y podrá 
-pujar a jugadores del mercado, donde que cada día saldrán nuevos futbolistas. Hay que tener cuidado, ya que si el saldo de un usuario es negativo en esa jornada 
-no recibirá puntos. Además hay una clasificación donde aparecen todos los integrantes de la liga y los puntos totales que tiene cada uno. 
-
 Si es la primera vez que accedes a esta aplicación, tendrás que crearte una cuenta, especificando tu usuario y contraseña. En este punto tendrás dos opciones: puedes
 crear tú una liga y compartir el código de esta a tus amigos para que se unan, o puedes unirte a una liga existente utilizando ese código. Una vez dentro, se te ha 
 asignado un equipo, el cual podrás visualizarlo en la pestaña equipo. Tendrás la oportunidad de decidir cuales son tus jugadores titulares y tus jugadores suplentes.
