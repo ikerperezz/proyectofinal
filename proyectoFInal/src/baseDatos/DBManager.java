@@ -22,7 +22,7 @@ import clases.UsuarioPublico;
 import interfaces.IManejoDeDatos;
 import ventanas.VentanaHilo;
 
-public class DBManager implements IManejoDeDatos{
+public class DBManager implements IManejoDeDatos {
 
 	private Connection conn = null;
 
@@ -574,11 +574,11 @@ public class DBManager implements IManejoDeDatos{
 		}
 		return id;
 	}
-	
+
 	public int conseguirIdUsuario(String nombre) {
 		int id = 0;
 		List<UsuarioPublico> usu = crearLista();
-		
+
 		for (int i = 0; i < usu.size(); i++) {
 			if (nombre.contains(usu.get(i).getUsuario())) {
 				id = usu.get(i).getIdUsuarioPublico();
@@ -587,11 +587,11 @@ public class DBManager implements IManejoDeDatos{
 		}
 		return id;
 	}
-	
+
 	public int conseguirPuntosUsuario(String nombre) {
 		int puntos = 0;
 		List<UsuarioPublico> usu = crearLista();
-		
+
 		for (int i = 0; i < usu.size(); i++) {
 			if (nombre.contains(usu.get(i).getUsuario())) {
 				puntos = usu.get(i).getPuntos();
@@ -600,11 +600,11 @@ public class DBManager implements IManejoDeDatos{
 		}
 		return puntos;
 	}
-	
+
 	public int conseguirDineroUsuario(String nombre) {
 		int dinero = 0;
 		List<UsuarioPublico> usu = crearLista();
-		
+
 		for (int i = 0; i < usu.size(); i++) {
 			if (nombre.contains(usu.get(i).getUsuario())) {
 				dinero = usu.get(i).getDineroDisponible();
@@ -886,8 +886,6 @@ public class DBManager implements IManejoDeDatos{
 		}
 	}
 
-
-
 	public Map<String, Integer> crearListaJugadoresValor() {
 		Map<String, Integer> jug = new HashMap<String, Integer>();
 		try (Statement stmt = conn.createStatement()) {
@@ -906,10 +904,10 @@ public class DBManager implements IManejoDeDatos{
 		}
 		return null;
 	}
-	
+
 	public Map<String, Integer> crearListaUsuariosPuntos() {
 		Map<String, Integer> usu = new HashMap<String, Integer>();
-		
+
 		try (Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery("SELECT nombreDeUsuario, puntos FROM usuario");
 
@@ -926,10 +924,10 @@ public class DBManager implements IManejoDeDatos{
 		}
 		return null;
 	}
-	
+
 	public Map<String, Integer> crearListaUsuariosDinero() {
 		Map<String, Integer> usu = new HashMap<String, Integer>();
-		
+
 		try (Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery("SELECT nombreDeUsuario, dineroDisponible FROM usuario");
 
@@ -963,7 +961,7 @@ public class DBManager implements IManejoDeDatos{
 		}
 		return null;
 	}
-	
+
 	public List<String> crearListaUsuariosNombre() {
 		List<String> usu = new ArrayList<String>();
 		try (Statement stmt = conn.createStatement()) {
@@ -994,7 +992,7 @@ public class DBManager implements IManejoDeDatos{
 			System.out.format("No se puedo actualizar el valor del jugador");
 		}
 	}
-	
+
 	public void updatePuntosUsuarios(int id, int puntos) {
 		try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET puntos = ? WHERE idUsuario = " + id)) {
 
@@ -1008,9 +1006,10 @@ public class DBManager implements IManejoDeDatos{
 			System.out.format("No se puedo actualizar los puntos del usuario");
 		}
 	}
-	
+
 	public void updateDineroUsuarios(int id, int dinero) {
-		try (PreparedStatement stmt = conn.prepareStatement("UPDATE usuario SET dineroDisponible = ? WHERE idUsuario = " + id)) {
+		try (PreparedStatement stmt = conn
+				.prepareStatement("UPDATE usuario SET dineroDisponible = ? WHERE idUsuario = " + id)) {
 
 			stmt.setInt(1, dinero);
 
@@ -1023,27 +1022,23 @@ public class DBManager implements IManejoDeDatos{
 		}
 	}
 
-	public void implementacionHilo() {
-		VentanaHilo v = new VentanaHilo(null);
-		v.setVisible(true);
-		try (PreparedStatement stmt = conn
-				.prepareStatement("SELECT nombreJugador, valor FROM jugadores ORDER BY valor DESC LIMIT 5 ")) {
-			ResultSet resultSet = stmt.executeQuery();
+	public DefaultListModel<String> implementacionHilo() {
+		try (Statement stmt = conn.createStatement()) {
+			ResultSet resultSet = stmt
+					.executeQuery("SELECT nombreJugador, valor FROM jugadores ORDER BY valor DESC LIMIT 5 ");
 			DefaultListModel<String> model = new DefaultListModel<>();
 			while (resultSet.next()) {
 				model.addElement(resultSet.getString("nombreJugador"));
 				model.addElement(resultSet.getString("valor"));
 			}
-			JList<String> listaJugadores = new JList<>(model);
-
+			return model;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
-	
-	
-	
-	public List<Integer> sacarpuntos(){
+
+	public List<Integer> sacarpuntos() {
 		List<Integer> arr = new ArrayList<Integer>();
 		try (Statement stmt = conn.createStatement()) {
 			ResultSet rs = stmt.executeQuery("SELECT puntos FROM usuario");
@@ -1057,9 +1052,9 @@ public class DBManager implements IManejoDeDatos{
 		} catch (SQLException e) {
 			System.out.format("Error creando lista", e);
 		}
-		
+
 		return null;
-		
+
 	}
 
 	public Connection getConn() {
