@@ -2,19 +2,13 @@ package ventanas;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.EventQueue;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
-import clases.Jugador;
-
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -32,6 +26,10 @@ import javax.swing.JTextField;
 
 public class VentanaAñadirValor extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private DefaultListModel<String> model;
 	private JTextField textField;

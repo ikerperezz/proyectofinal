@@ -10,18 +10,13 @@ import clases.UsuarioPublico;
 
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.awt.event.ActionEvent;
-import javax.swing.JComboBox;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 
 public class VentanaClasificacion extends JFrame {
 

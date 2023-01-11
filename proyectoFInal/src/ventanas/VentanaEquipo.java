@@ -1,6 +1,5 @@
 package ventanas;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -9,23 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
-import clases.BaseDatos;
 import clases.Jugador;
-import clases.UsuarioPublico;
-
 import javax.swing.JLabel;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.ListModel;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.ListSelectionEvent;
 import javax.swing.JScrollPane;
 
 public class VentanaEquipo extends JFrame {
@@ -37,8 +28,6 @@ public class VentanaEquipo extends JFrame {
 	private JPanel contentPane;
 	private DefaultListModel<String> model;
 	private DefaultListModel<String> modelsup;
-	private JList<BaseDatos> list;
-	private ArrayList<BaseDatos> nombreJugador;
 	static Jugador jugador = new Jugador(0, "", 0, "", "", 0, false);
 	
 	
@@ -99,7 +88,7 @@ public class VentanaEquipo extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				DBManager dbmanager= new DBManager();
 				dbmanager.conectar();
-				List<Jugador> jug = dbmanager.crearListaPlantilla(InterfazDeUsuarioPublico.usP);
+				dbmanager.crearListaPlantilla(InterfazDeUsuarioPublico.usP);
 				
 				String pos= list_2.getSelectedValue();
 				

@@ -1,7 +1,5 @@
 package ventanas;
 
-import java.awt.EventQueue;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -9,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import baseDatos.DBManager;
-import clases.UsuarioPublico;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -17,6 +14,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaClasificacionGeneral extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
 

@@ -1,7 +1,5 @@
 package baseDatos;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -10,25 +8,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.logging.Logger;
 
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import clases.Administrador;
 import clases.Jugador;
 import clases.Liga;
 import clases.Oferta;
 import clases.UsuarioPublico;
 import interfaces.IManejoDeDatos;
-import ventanas.VentanaAdministrador;
 import ventanas.VentanaHilo;
 
 public class DBManager implements IManejoDeDatos{

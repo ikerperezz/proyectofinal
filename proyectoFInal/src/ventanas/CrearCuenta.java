@@ -14,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.awt.event.ActionEvent;
@@ -29,7 +28,6 @@ public class CrearCuenta extends JFrame {
 	private JPasswordField passwordField;
 	private JTextField textField;
 	private JPasswordField passwordField_1;
-	private ArrayList<UsuarioPublico> up = new ArrayList<UsuarioPublico>();
 	static String nombreUsuario;
 
 	/**
