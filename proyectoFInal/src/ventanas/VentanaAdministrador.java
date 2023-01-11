@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.logging.Logger;
