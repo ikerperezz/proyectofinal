@@ -86,10 +86,8 @@ public class CrearCuenta extends JFrame {
 				}
 				if (crearUsuario == true) {
 					int saldoInicial = PropertiesManager.saldoInicial();
-					System.out.println(saldoInicial);
 					UsuarioPublico us = new UsuarioPublico(textField.getText(), passwordField.getText(), 0, 0, saldoInicial,
 							0);
-					System.out.println(us.getDineroDisponible());
 					nombreUsuario = textField.getText();
 					dbmanager.actualizarUsuarios(us);
 					VentanaOpcionesLiga v = new VentanaOpcionesLiga(CrearCuenta.this);
